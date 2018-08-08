@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Electronics Page";
+}
+
+
+<div class="jumbotron">
+    <h1>Projects</h1>
+    <p class="lead">Browse through the collection of all your projects. Create new or modify previous ones.</p>
+    <p>@Html.ActionLink(HttpUtility.HtmlDecode("See all &raquo;"), "Part", "Home", new { @class = "btn btn-primary btn-lg" })</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Parts</h2>
+        <p>
+            Simple list of all <b>Parts</b> available in the database. Create new ones, update and delete existing ones. Add shopping and more ...
+        </p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Browse all &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>PCBs</h2>
+        <p>
+            Browse all created <b>PCBs</b>. Add parts to PCB. Assign PCBs to projects and more ...
+        </p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Browse all &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Packages</h2>
+        <p>Browse through the list of all <b>Packages</b>. Assign all components to packages to easily find and catalog them.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Browse all &raquo;</a></p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Manufacturers</h2>
+        <p>
+            Manage all available part/component <b>Manufacturers</b>.
+        </p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Browse all &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Locations</h2>
+        <p>Manage <b>Locations</b>. Assign components to their respective locations.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Browse all &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Types</h2>
+        <p>manage different <b>Types</b>. From resistors to CPUs and more</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Browse all &raquo;</a></p>
+    </div>
+</div>

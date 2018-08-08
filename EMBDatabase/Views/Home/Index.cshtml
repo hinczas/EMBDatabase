@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<style>
+    .h2, h2 {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .panel-body {
+        min-height: 150px;
+    }
+</style>
+<div class="jumbotron">
+    <h1>EMBDatabase</h1>
+    <p class="lead">EMBDatabase is a central repository for all your electronic components, books library and multimedia collections.</p>
+
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2>Electronics</h2>
+            </div>
+            <div class="panel-body">
+                <p>
+                    Main electronics database. Create <b>projects</b> add <b>parts</b>, <b>PCBs</b>, <b>manufacturers</b> and a lot more.
+                </p>                
+            </div>
+            <div class="panel-footer text-right">@Html.ActionLink(HttpUtility.HtmlDecode("Manage electronics &raquo;"), "Electronics", "Home")</div>
+        </div>        
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h2>Books</h2>
+            </div>
+            <div class="panel-body">
+                <p>
+                    All your books wasily accesible and manageable for one place. Add and manage <b>titles</b>, <b>authors</b>, <b>publishers</b> and more
+                </p>
+            </div>
+            <div class="panel-footer text-right">@Html.ActionLink(HttpUtility.HtmlDecode("Go to library &raquo;"), "Electronics", "Home")</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h2>Multimedia</h2>
+            </div>
+            <div class="panel-body">
+                <p>
+                    Browse through never eding list of all your movies collection. Whether it's a BluRay, DVD or digital you can easily add new <b>titles</b> and manage existing entries.
+                </p>
+            </div>
+            <div class="panel-footer text-right">@Html.ActionLink(HttpUtility.HtmlDecode("Browse collection &raquo;"), "Electronics", "Home")</div>
+        </div>
+    </div>
+</div>
