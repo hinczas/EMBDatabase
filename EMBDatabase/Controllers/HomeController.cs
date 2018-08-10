@@ -12,29 +12,8 @@ namespace EMBDatabase.Controllers
         {
             return View();
         }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult Part()
-        {
-            ViewBag.Message = "Parts page.";
-
-            return View();
-        }
-
-
+        
+        
         public ActionResult Electronics()
         {
             ViewBag.Message = "Electronics page.";

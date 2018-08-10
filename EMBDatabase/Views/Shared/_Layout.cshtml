@@ -32,27 +32,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li> @Html.ActionLink("Home", "Index", "Home")</li>
                     <li> @Html.ActionLink("Electronics", "Electronics", "Home")</li>
-                    <li>
-                        <div class="btn-group navbar-btn">
-                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Parts", "Part", "Home")</li>
-                                <li><a href="#">PCBs</a></li>
-                                <li><a href="#">Packages</a></li>
-                                <li><a href="#">Manufacturers</a></li>
-                                <li><a href="#">Locations</a></li>
-                                <li><a href="#">Types</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">More ...</a></li>
-                            </ul>
-                        </div>
-                    </li>
-
+                    <li> @Html.ActionLink("Books", "Electronics", "Home")</li>
+                    <li> @Html.ActionLink("Multimedia", "Electronics", "Home")</li>
                 </ul>
                 <form class="navbar-form navbar-right">
                     <div class="input-group">

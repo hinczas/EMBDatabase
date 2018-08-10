@@ -1,0 +1,112 @@
+﻿@model IEnumerable<EMBDatabase.Models.Part>
+
+@{
+    ViewBag.Title = "Parts";
+}
+<style>
+    table a:hover {
+        text-decoration: none;
+    }
+</style>
+<div>
+    <p />
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">Actions</div>
+                    <div class="panel-body">
+                        <p>                            
+                            @Html.ActionLink("New Part", "Create")
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Info</div>
+                    <div class="panel-body">
+                        <p>
+                            Entries: <b>@Model.Count()</b><br />
+                            All parts: <b>@Model.Sum(a => a.Quantity)</b><br />
+                            Total worth: <b>@Model.Sum(b => b.Quantity * b.Price)</b><br />
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="panel panel-success">
+            <div class="panel-heading">All parts</div>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Number)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Voltage)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Current)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Pin_Count)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Quantity)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Number)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Voltage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Current)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pin_Count)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Parts", new { id = item.Id })">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </a> 
+                        <a href="@Url.Action("Details", "Parts", new { id = item.Id })">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </a> 
+                        <a href="@Url.Action("Delete", "Parts", new { id = item.Id })">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

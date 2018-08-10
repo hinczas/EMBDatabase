@@ -1,0 +1,128 @@
+﻿@model EMBDatabase.Models.Part
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Part</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Number)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Number)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Keywords)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Keywords)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Voltage)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Voltage)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Current)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Current)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Pin_Count)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Pin_Count)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CreateDate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.UpdateDate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UpdateDate)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

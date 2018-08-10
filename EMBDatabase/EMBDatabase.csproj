@@ -156,6 +156,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Context\EMBContext.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PartsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -166,6 +167,18 @@
     <Compile Include="Migrations\201806291034290_BigOne.cs" />
     <Compile Include="Migrations\201806291034290_BigOne.Designer.cs">
       <DependentUpon>201806291034290_BigOne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808091446220_fixedKeys.cs" />
+    <Compile Include="Migrations\201808091446220_fixedKeys.Designer.cs">
+      <DependentUpon>201808091446220_fixedKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808100721432_testKeys.cs" />
+    <Compile Include="Migrations\201808100721432_testKeys.Designer.cs">
+      <DependentUpon>201808100721432_testKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808100734072_moreKeys.cs" />
+    <Compile Include="Migrations\201808100734072_moreKeys.Designer.cs">
+      <DependentUpon>201808100734072_moreKeys.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\File.cs" />
@@ -218,8 +231,12 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Part.cshtml" />
     <Content Include="Views\Home\Electronics.cshtml" />
+    <Content Include="Views\Parts\Create.cshtml" />
+    <Content Include="Views\Parts\Delete.cshtml" />
+    <Content Include="Views\Parts\Details.cshtml" />
+    <Content Include="Views\Parts\Edit.cshtml" />
+    <Content Include="Views\Parts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -244,6 +261,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806291034290_BigOne.resx">
       <DependentUpon>201806291034290_BigOne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808091446220_fixedKeys.resx">
+      <DependentUpon>201808091446220_fixedKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808100721432_testKeys.resx">
+      <DependentUpon>201808100721432_testKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808100734072_moreKeys.resx">
+      <DependentUpon>201808100734072_moreKeys.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

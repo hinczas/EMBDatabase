@@ -6,7 +6,7 @@
 <div class="jumbotron">
     <h1>Projects</h1>
     <p class="lead">Browse through the collection of all your projects. Create new or modify previous ones.</p>
-    <p>@Html.ActionLink(HttpUtility.HtmlDecode("See all &raquo;"), "Part", "Home", new { @class = "btn btn-primary btn-lg" })</p>
+    <p>@Html.ActionLink(HttpUtility.HtmlDecode("See all &raquo;"), "Electronics", "Home", null, new { @class = "btn btn-primary btn-lg" })</p>
 </div>
 
 <div class="row">
@@ -15,7 +15,7 @@
         <p>
             Simple list of all <b>Parts</b> available in the database. Create new ones, update and delete existing ones. Add shopping and more ...
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Browse all &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Parts")">Browse all &raquo;</a></p>
     </div>
     <div class="col-md-4">
         <h2>PCBs</h2>

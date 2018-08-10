@@ -20,11 +20,19 @@ namespace EMBDatabase.Models
         public decimal Price { get; set; }
 
 
+        [ForeignKey("Manufacturer")]
+        public long? Manufacturer_Id { get; set; }
+        public Manufacturer Manufacturer { get; set; }
+        [ForeignKey("Package")]
+        public long? Package_Id { get; set; }
+        public Package Package { get; set; }
+        [ForeignKey("Location")]
+        public long? Location_Id { get; set; }
+        public Location Location { get; set; }
+        [ForeignKey("Type")]
+        public long? Type_Id { get; set; }
+        public Type Type { get; set; }
 
-        public virtual Manufacturer Manufacturer { get; set; }
-        public virtual Package Package { get; set; }
-        public virtual Location Location { get; set; }
-        public virtual Type Type { get; set; }
         public virtual IList<PCB> PCB { get; set; }
         public virtual IList<File> File { get; set; }
         public virtual IList<Project> Project { get; set; }
