@@ -96,13 +96,11 @@
                     <td>
                         <a href="@Url.Action("Edit", "Parts", new { id = item.Id })">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        </a> 
+                        </a>
                         <a href="@Url.Action("Details", "Parts", new { id = item.Id })">
                             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        </a> 
-                        <a href="@Url.Action("Delete", "Parts", new { id = item.Id })">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </a>
+                        @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { onclick = "return confirm('Are you sure you wish to delete this Part?');", @class = "glyphicon glyphicon-remove" })
                     </td>
                 </tr>
                 }

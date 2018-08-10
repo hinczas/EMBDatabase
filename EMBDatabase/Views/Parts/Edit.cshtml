@@ -3,7 +3,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 
 @{
-    ViewBag.Title = "Create Part";
+    ViewBag.Title = "Edit Part";
 }
 <style>
     .row {
@@ -29,6 +29,9 @@
                 <div class="panel panel-warning">
                     <div class="panel-heading">Actions</div>
                     <div class="panel-body">
+                        <p>
+                            @Html.ActionLink(HttpUtility.HtmlDecode("&laquo; Back to part"), "Details" , new { id = Model.Id })
+                        </p>
                         <p>
                             @Html.ActionLink(HttpUtility.HtmlDecode("&laquo; Back to list"), "Index", "Parts")
                         </p>

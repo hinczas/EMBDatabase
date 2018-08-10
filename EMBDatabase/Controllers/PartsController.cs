@@ -56,7 +56,7 @@ namespace EMBDatabase.Controllers
         {
             if (ModelState.IsValid)
             {
-                part.CreateDate = new SqlDateTime(DateTime.Now).Value; ;
+                part.CreateDate = new SqlDateTime(DateTime.Now).Value;
 
                 db.Part.Add(part);
                 db.SaveChanges();
@@ -118,7 +118,10 @@ namespace EMBDatabase.Controllers
             {
                 return HttpNotFound();
             }
-            return View(part);
+            //return View(part);
+            db.Part.Remove(part);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // POST: Parts/Delete/5

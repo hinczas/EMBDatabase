@@ -13,7 +13,7 @@ namespace EMBDatabase.Models
         public string Email { get; set; }
         public string Website { get; set; }
 
-
+        public virtual IList<Part> Parts { get; set; }
         public virtual File File { get; set; }
     }
 }
