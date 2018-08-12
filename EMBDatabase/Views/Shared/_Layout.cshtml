@@ -1,14 +1,19 @@
 ﻿<!DOCTYPE html>
 <style>
     .navbar-inverse .btn {
-        background-color: #222222;
-        border-color: #222222;
+        background-color: #555555;
+        border-color: #555555;
         color: #999999;
+        border:solid;
+        border-width:1px;
     }
-    .navbar-inverse .btn:hover {
-        color: #ffffff;
-        background-color: #666666;
-        border-color: #666666;
+        .navbar-inverse .btn:hover {
+            color: #ffffff;
+            background-color: #777777;
+            border-color: #777777;
+        }
+    .pad {
+        padding-left: 10px;
     }
 </style>
 <html>
@@ -35,6 +40,7 @@
                     <li> @Html.ActionLink("Electronics", "Electronics", "Home")</li>
                     <li> @Html.ActionLink("Books", "Electronics", "Home")</li>
                     <li> @Html.ActionLink("Multimedia", "Electronics", "Home")</li>
+                    
                 </ul>
                 <form class="navbar-form navbar-right">
                     <div class="input-group">
@@ -44,6 +50,20 @@
                         </span>
                     </div>
                 </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quick links <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li> @Html.ActionLink("Electronics", "Electronics", "Home")</li>
+                            <li class="pad"> @Html.ActionLink("Parts", "Index", "Parts")</li>
+                            <li class="pad"> @Html.ActionLink("Manufacturers", "Index", "Manufacturers")</li>
+                            <li role="separator" class="divider"></li>
+                            <li> @Html.ActionLink("Books", "Electronics", "Home")</li>
+                            <li role="separator" class="divider"></li>
+                            <li> @Html.ActionLink("Multimedia", "Electronics", "Home")</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
