@@ -11,7 +11,7 @@ namespace EMBDatabase.Models
         [StringLength(50)]
         public string File_Type { get; set; }
         public string Hash_Name { get; set; }
-
+        public string File_Path { get; set; }
 
         public virtual IList<Project> Project { get; set; }
         public virtual IList<Part> Part { get; set; }
