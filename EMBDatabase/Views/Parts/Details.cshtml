@@ -18,6 +18,10 @@
     select {
         min-width: 150px;
     }
+    .container {
+        display: table;
+        width: 100%
+    }
 </style>
 <div>
     <p />
@@ -149,26 +153,75 @@
                     <dd>
                         <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Manufacturer.Id})">@Model.Manufacturer.Name</a>
                     </dd>
+                    <hr />
+                    <dt>
+                        Files
+                    </dt>
+                    <dd>
+                        
+                    </dd>
                     @*<dt>
-                        @Html.DisplayNameFor(model => model.Type)
-                    </dt>
-                    <dd>
-                        <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Type.Id})">@Model.Type.Name</a>
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Package)
-                    </dt>
-                    <dd>
-                        <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Package.Id})">@Model.Package.Name</a>
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Location)
-                    </dt>
-                    <dd>
-                        <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Location.Id})">@Model.Location.Name</a>
-                    </dd>*@
+                            @Html.DisplayNameFor(model => model.Type)
+                        </dt>
+                        <dd>
+                            <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Type.Id})">@Model.Type.Name</a>
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Package)
+                        </dt>
+                        <dd>
+                            <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Package.Id})">@Model.Package.Name</a>
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Location)
+                        </dt>
+                        <dd>
+                            <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Location.Id})">@Model.Location.Name</a>
+                        </dd>*@
 
-                </dl> 
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        
+        <div class="panel panel-info">
+            <div class="panel-heading">Documents</div>
+            <div class="panel-body">
+                @foreach (EMBDatabase.Models.File img in Model.File.Where(a => a.File_Type == "Images"))
+                {
+
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src=@Url.Content(img.File_Path) alt="...">
+                        </a>
+                    </div>
+                }
+            </div>
+            <div class="panel-footer">
+                @using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="container">
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.Id)
+                        @Html.Hidden("sender", "Parts")
+                        @Html.Hidden("file_type", "Images")
+                        @Html.TextBox("file", "", new { type = "file" })
+
+                        <input type="submit" value="Upload" class="btn btn-default" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">Images</div>
+            <div class="panel-body">
+                
             </div>
         </div>
     </div>
