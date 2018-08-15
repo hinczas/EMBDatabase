@@ -231,10 +231,11 @@
             <div class="panel-body">
                 @foreach (EMBDatabase.Models.File doc in Model.File.Where(a => a.File_Type == "Documents"))
                 {
+                    <div class="col-xs-6 col-md-3">
                         <a href=@Url.Content(doc.File_Path)>
                             @doc.Name
                         </a>
-                        <br />
+                    </div>
                 }
             </div>
             <div class="panel-footer">
