@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using EMBDatabase.Context;
 using EMBDatabase.Models;
+using PagedList;
 
 namespace EMBDatabase.Controllers
 {
@@ -17,9 +18,72 @@ namespace EMBDatabase.Controllers
         private EMBContext db = new EMBContext();
 
         // GET: Parts
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page, string pagesNum, string prevPagesNum)
         {
-            return View(db.Part.ToList());
+            ViewBag.PartsPerPage = prevPagesNum;
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.NumberSortParam = sortOrder == "Number" ? "number_desc" : "Number";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var parts = db.Part.Select(a => (Part) a);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                parts = parts.Where(s => s.Name.Contains(searchString)
+                                       || s.Number.Contains(searchString)
+                                       || s.Keywords.Contains(searchString)
+                                       || s.Notes.Contains(searchString)
+                                       || s.Description.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    parts = parts.OrderByDescending(s => s.Name);
+                    break;
+                case "Number":
+                    parts = parts.OrderBy(s => s.Number);
+                    break;
+                case "number_desc":
+                    parts = parts.OrderByDescending(s => s.Number);
+                    break;
+                default:
+                    parts = parts.OrderBy(s => s.Name);
+                    break;
+            }
+
+            int pageSize = 20;
+            if (String.IsNullOrEmpty(pagesNum))
+            {
+                pagesNum = prevPagesNum;
+            }
+            if (String.IsNullOrEmpty(pagesNum))
+            {
+                pagesNum = "20";
+            }
+            if (pagesNum.Equals("all"))
+            {
+                pageSize = db.Part.Count();
+            }
+            else
+            {
+                pageSize = Int32.Parse(pagesNum);
+            }
+            ViewBag.PartsPerPage = (pagesNum ?? "20");
+
+            int pageNumber = (page ?? 1);
+            return View(parts.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Parts/Details/5

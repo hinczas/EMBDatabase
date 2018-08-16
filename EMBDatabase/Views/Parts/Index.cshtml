@@ -1,4 +1,6 @@
-﻿@model IEnumerable<EMBDatabase.Models.Part>
+﻿@model PagedList.IPagedList<EMBDatabase.Models.Part>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Parts";
@@ -6,6 +8,15 @@
 <style>
     table a:hover {
         text-decoration: none;
+    }
+
+    #pager {
+        padding: 0;
+        text-align: center;
+    }
+
+    .pagination {
+        margin: 5px;
     }
 </style>
 <div>
@@ -18,7 +29,34 @@
                 <div class="panel panel-warning">
                     <div class="panel-heading">Actions</div>
                     <div class="panel-body">
-                        <p>                            
+                        @using (Html.BeginForm("Index", "Parts", FormMethod.Get))
+                        {
+                            <p>
+                                <div class="input-group">
+                                    @Html.Hidden("prevPagesNum", ViewBag.PartsPerPage as string)
+                                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Search for parts..." })
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="submit">Go!</button>
+                                    </span>
+                                </div>
+                            </p>
+                        }
+                        @using (Html.BeginForm())
+                        {
+                            <p>
+                                <div class="input-group">
+                                    @Html.Hidden("prevPagesNum", ViewBag.PartsPerPage as string)
+                                    <span class="input-group-addon" id="basic-addon3">Parts per page</span>
+                                    @Html.DropDownList("pagesNum",
+                                            new SelectList(new List<string>() { "20","35","50","all"}),  new { @class = "form-control" })
+
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="submit">Go!</button>
+                                    </span>
+                                </div>
+                            </p>
+                        }
+                        <p>
                             @Html.ActionLink("New Part", "Create")
                         </p>
                     </div>
@@ -31,9 +69,16 @@
                     <div class="panel-heading">Info</div>
                     <div class="panel-body">
                         <p>
-                            Entries: <b>@Model.Count()</b><br />
-                            All parts: <b>@Model.Sum(a => a.Quantity)</b><br />
-                            Total worth: <b>@Model.Sum(b => b.Quantity * b.Price)</b><br />
+                            @{
+                                var db = new EMBDatabase.Context.EMBContext();
+                                var parts = db.Part.ToList();
+                            } 
+
+                            Entries: <b>@parts.Count()</b><br />
+                            All parts: <b>@parts.Sum(a => a.Quantity)</b><br />
+                            Total worth: <b>@parts.Sum(b => b.Quantity * b.Price)</b><br />
+                            Pages: <b>@Model.PageCount</b><br />
+
                         </p>
                     </div>
                 </div>
@@ -42,66 +87,78 @@
     </div>
     <div class="col-md-9">
         <div class="panel panel-success">
-            <div class="panel-heading">All parts</div>
+            <div class="panel-heading">
+                All parts
+
+            </div>
             <table class="table">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Number)
+                        @Html.ActionLink("Number", "Index", new { sortOrder = ViewBag.NumberSortParam, currentFilter = ViewBag.CurrentFilter })
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Name)
+                        @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Voltage)
+                        Voltage
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Current)
+                        Current
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Pin_Count)
+                        Pin Count
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Price)
+                        Price
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Quantity)
+                        Quantity
                     </th>
                     <th></th>
                 </tr>
 
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.ActionLink(item.Name, "Details", new { id = item.Id })
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Voltage)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Current)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Pin_Count)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Edit", "Parts", new { id = item.Id })">
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        </a>
-                        @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { onclick = "return confirm('Are you sure you wish to delete this Part?');", @class = "glyphicon glyphicon-remove" })
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.ActionLink(item.Name, "Details", new { id = item.Id })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Voltage)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Current)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pin_Count)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Edit", "Parts", new { id = item.Id })">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </a>
+                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { onclick = "return confirm('Are you sure you wish to delete this Part?');", @class = "glyphicon glyphicon-remove" })
+                        </td>
+                    </tr>
                 }
             </table>
+            @if (Model.PageCount > 1)
+                {
+                    <div class="panel-footer" id="pager">
+                        <nav aria-label="Page navigation">
+                            @Html.PagedListPager(Model, page => Url.Action("Index",
+                                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, prevPagesNum = ViewBag.PartsPerPage }))                            
+                        </nav>
+                    </div>
+                }
         </div>
     </div>
 </div>
