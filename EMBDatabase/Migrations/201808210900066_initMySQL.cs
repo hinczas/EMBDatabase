@@ -3,7 +3,7 @@ namespace EMBDatabase.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class BigOne : DbMigration
+    public partial class initMySQL : DbMigration
     {
         public override void Up()
         {
@@ -12,26 +12,79 @@ namespace EMBDatabase.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        File_Type = c.String(maxLength: 50),
-                        Hash_Name = c.String(),
-                        Name = c.String(maxLength: 50),
-                        Description = c.String(),
-                        Notes = c.String(),
-                        CreateDate = c.DateTime(nullable: false),
-                        UpdateDate = c.DateTime(),
+                        File_Type = c.String(maxLength: 50, storeType: "nvarchar"),
+                        Hash_Name = c.String(unicode: false),
+                        File_Path = c.String(unicode: false),
+                        Name = c.String(maxLength: 50, storeType: "nvarchar"),
+                        Description = c.String(unicode: false),
+                        Notes = c.String(unicode: false),
+                        CreateDate = c.DateTime(nullable: false, precision: 0),
+                        UpdateDate = c.DateTime(precision: 0),
                     })
                 .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Part",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Number = c.String(maxLength: 50, storeType: "nvarchar"),
+                        Keywords = c.String(unicode: false),
+                        Voltage = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Current = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Quantity = c.Int(nullable: false),
+                        Pin_Count = c.Int(nullable: false),
+                        Price = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Manufacturer_Id = c.Long(),
+                        Package_Id = c.Long(),
+                        Location_Id = c.Long(),
+                        Type_Id = c.Long(),
+                        Name = c.String(maxLength: 50, storeType: "nvarchar"),
+                        Description = c.String(unicode: false),
+                        Notes = c.String(unicode: false),
+                        CreateDate = c.DateTime(nullable: false, precision: 0),
+                        UpdateDate = c.DateTime(precision: 0),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Location", t => t.Location_Id)
+                .ForeignKey("dbo.Manufacturer", t => t.Manufacturer_Id)
+                .ForeignKey("dbo.Package", t => t.Package_Id)
+                .ForeignKey("dbo.Type", t => t.Type_Id)
+                .Index(t => t.Manufacturer_Id)
+                .Index(t => t.Package_Id)
+                .Index(t => t.Location_Id)
+                .Index(t => t.Type_Id);
             
             CreateTable(
                 "dbo.Location",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Name = c.String(maxLength: 50),
-                        Description = c.String(),
-                        Notes = c.String(),
-                        CreateDate = c.DateTime(nullable: false),
-                        UpdateDate = c.DateTime(),
+                        Name = c.String(maxLength: 50, storeType: "nvarchar"),
+                        Description = c.String(unicode: false),
+                        Notes = c.String(unicode: false),
+                        CreateDate = c.DateTime(nullable: false, precision: 0),
+                        UpdateDate = c.DateTime(precision: 0),
+                        File_Id = c.Long(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.File", t => t.File_Id)
+                .Index(t => t.File_Id);
+            
+            CreateTable(
+                "dbo.Manufacturer",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Full_Name = c.String(unicode: false),
+                        Address = c.String(unicode: false),
+                        Email = c.String(unicode: false),
+                        Website = c.String(unicode: false),
+                        Name = c.String(maxLength: 50, storeType: "nvarchar"),
+                        Description = c.String(unicode: false),
+                        Notes = c.String(unicode: false),
+                        CreateDate = c.DateTime(nullable: false, precision: 0),
+                        UpdateDate = c.DateTime(precision: 0),
                         File_Id = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)
@@ -43,12 +96,12 @@ namespace EMBDatabase.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Number = c.String(maxLength: 50),
-                        Name = c.String(maxLength: 50),
-                        Description = c.String(),
-                        Notes = c.String(),
-                        CreateDate = c.DateTime(nullable: false),
-                        UpdateDate = c.DateTime(),
+                        Number = c.String(maxLength: 50, storeType: "nvarchar"),
+                        Name = c.String(maxLength: 50, storeType: "nvarchar"),
+                        Description = c.String(unicode: false),
+                        Notes = c.String(unicode: false),
+                        CreateDate = c.DateTime(nullable: false, precision: 0),
+                        UpdateDate = c.DateTime(precision: 0),
                         File_Id = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)
@@ -60,16 +113,16 @@ namespace EMBDatabase.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Version = c.String(),
-                        StartDate = c.DateTime(),
-                        EndDate = c.DateTime(),
+                        Version = c.String(unicode: false),
+                        StartDate = c.DateTime(precision: 0),
+                        EndDate = c.DateTime(precision: 0),
                         Total_Cost = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Changelog = c.String(),
-                        Name = c.String(maxLength: 50),
-                        Description = c.String(),
-                        Notes = c.String(),
-                        CreateDate = c.DateTime(nullable: false),
-                        UpdateDate = c.DateTime(),
+                        Changelog = c.String(unicode: false),
+                        Name = c.String(maxLength: 50, storeType: "nvarchar"),
+                        Description = c.String(unicode: false),
+                        Notes = c.String(unicode: false),
+                        CreateDate = c.DateTime(nullable: false, precision: 0),
+                        UpdateDate = c.DateTime(precision: 0),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -78,17 +131,17 @@ namespace EMBDatabase.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Code = c.String(maxLength: 50),
-                        Version = c.String(maxLength: 50),
-                        StartDate = c.DateTime(),
-                        EndDate = c.DateTime(),
-                        Log = c.String(),
-                        Folder_Location = c.String(),
-                        Name = c.String(maxLength: 50),
-                        Description = c.String(),
-                        Notes = c.String(),
-                        CreateDate = c.DateTime(nullable: false),
-                        UpdateDate = c.DateTime(),
+                        Code = c.String(maxLength: 50, storeType: "nvarchar"),
+                        Version = c.String(maxLength: 50, storeType: "nvarchar"),
+                        StartDate = c.DateTime(precision: 0),
+                        EndDate = c.DateTime(precision: 0),
+                        Log = c.String(unicode: false),
+                        Folder_Location = c.String(unicode: false),
+                        Name = c.String(maxLength: 50, storeType: "nvarchar"),
+                        Description = c.String(unicode: false),
+                        Notes = c.String(unicode: false),
+                        CreateDate = c.DateTime(nullable: false, precision: 0),
+                        UpdateDate = c.DateTime(precision: 0),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -97,11 +150,11 @@ namespace EMBDatabase.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Name = c.String(maxLength: 50),
-                        Description = c.String(),
-                        Notes = c.String(),
-                        CreateDate = c.DateTime(nullable: false),
-                        UpdateDate = c.DateTime(),
+                        Name = c.String(maxLength: 50, storeType: "nvarchar"),
+                        Description = c.String(unicode: false),
+                        Notes = c.String(unicode: false),
+                        CreateDate = c.DateTime(nullable: false, precision: 0),
+                        UpdateDate = c.DateTime(precision: 0),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -183,35 +236,10 @@ namespace EMBDatabase.Migrations
                 .Index(t => t.Project_Id)
                 .Index(t => t.PCB_Id);
             
-            AddColumn("dbo.Manufacturer", "File_Id", c => c.Long());
-            AddColumn("dbo.Part", "Number", c => c.String(maxLength: 50));
-            AddColumn("dbo.Part", "Price", c => c.Decimal(nullable: false, precision: 18, scale: 2));
-            AddColumn("dbo.Part", "Name", c => c.String(maxLength: 50));
-            AddColumn("dbo.Part", "CreateDate", c => c.DateTime(nullable: false));
-            AddColumn("dbo.Part", "UpdateDate", c => c.DateTime());
-            AddColumn("dbo.Part", "Location_Id", c => c.Long());
-            AddColumn("dbo.Part", "Package_Id", c => c.Long());
-            AddColumn("dbo.Part", "Type_Id", c => c.Long());
-            AlterColumn("dbo.Manufacturer", "Name", c => c.String(maxLength: 50));
-            CreateIndex("dbo.Manufacturer", "File_Id");
-            CreateIndex("dbo.Part", "Location_Id");
-            CreateIndex("dbo.Part", "Package_Id");
-            CreateIndex("dbo.Part", "Type_Id");
-            AddForeignKey("dbo.Part", "Location_Id", "dbo.Location", "Id");
-            AddForeignKey("dbo.Part", "Package_Id", "dbo.Package", "Id");
-            AddForeignKey("dbo.Part", "Type_Id", "dbo.Type", "Id");
-            AddForeignKey("dbo.Manufacturer", "File_Id", "dbo.File", "Id");
-            DropColumn("dbo.Part", "Part_Number");
-            DropColumn("dbo.Part", "Part_Name");
-            DropColumn("dbo.Part", "Type");
         }
         
         public override void Down()
         {
-            AddColumn("dbo.Part", "Type", c => c.String());
-            AddColumn("dbo.Part", "Part_Name", c => c.String());
-            AddColumn("dbo.Part", "Part_Number", c => c.String());
-            DropForeignKey("dbo.Manufacturer", "File_Id", "dbo.File");
             DropForeignKey("dbo.Part", "Type_Id", "dbo.Type");
             DropForeignKey("dbo.ProjectPCBs", "PCB_Id", "dbo.PCB");
             DropForeignKey("dbo.ProjectPCBs", "Project_Id", "dbo.Project");
@@ -225,6 +253,8 @@ namespace EMBDatabase.Migrations
             DropForeignKey("dbo.PCBFiles", "PCB_Id", "dbo.PCB");
             DropForeignKey("dbo.Part", "Package_Id", "dbo.Package");
             DropForeignKey("dbo.Package", "File_Id", "dbo.File");
+            DropForeignKey("dbo.Part", "Manufacturer_Id", "dbo.Manufacturer");
+            DropForeignKey("dbo.Manufacturer", "File_Id", "dbo.File");
             DropForeignKey("dbo.Part", "Location_Id", "dbo.Location");
             DropForeignKey("dbo.Location", "File_Id", "dbo.File");
             DropForeignKey("dbo.PartFiles", "File_Id", "dbo.File");
@@ -242,21 +272,12 @@ namespace EMBDatabase.Migrations
             DropIndex("dbo.PartFiles", new[] { "File_Id" });
             DropIndex("dbo.PartFiles", new[] { "Part_Id" });
             DropIndex("dbo.Package", new[] { "File_Id" });
+            DropIndex("dbo.Manufacturer", new[] { "File_Id" });
             DropIndex("dbo.Location", new[] { "File_Id" });
             DropIndex("dbo.Part", new[] { "Type_Id" });
-            DropIndex("dbo.Part", new[] { "Package_Id" });
             DropIndex("dbo.Part", new[] { "Location_Id" });
-            DropIndex("dbo.Manufacturer", new[] { "File_Id" });
-            AlterColumn("dbo.Manufacturer", "Name", c => c.String());
-            DropColumn("dbo.Part", "Type_Id");
-            DropColumn("dbo.Part", "Package_Id");
-            DropColumn("dbo.Part", "Location_Id");
-            DropColumn("dbo.Part", "UpdateDate");
-            DropColumn("dbo.Part", "CreateDate");
-            DropColumn("dbo.Part", "Name");
-            DropColumn("dbo.Part", "Price");
-            DropColumn("dbo.Part", "Number");
-            DropColumn("dbo.Manufacturer", "File_Id");
+            DropIndex("dbo.Part", new[] { "Package_Id" });
+            DropIndex("dbo.Part", new[] { "Manufacturer_Id" });
             DropTable("dbo.ProjectPCBs");
             DropTable("dbo.ProjectParts");
             DropTable("dbo.ProjectFiles");
@@ -267,7 +288,9 @@ namespace EMBDatabase.Migrations
             DropTable("dbo.Project");
             DropTable("dbo.PCB");
             DropTable("dbo.Package");
+            DropTable("dbo.Manufacturer");
             DropTable("dbo.Location");
+            DropTable("dbo.Part");
             DropTable("dbo.File");
         }
     }

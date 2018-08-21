@@ -5,10 +5,7 @@
 @{
     ViewBag.Title = "Parts";
 }
-<style>
-    table a:hover {
-        text-decoration: none;
-    }
+<style>  
 
     #pager {
         padding: 0;
@@ -18,50 +15,15 @@
     .pagination {
         margin: 5px;
     }
+    .form-group {
+        white-space: nowrap;
+    }
 </style>
 <div>
     <p />
 </div>
 <div class="row">
-    <div class="col-md-3">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-warning">
-                    <div class="panel-heading">Actions</div>
-                    <div class="panel-body">
-                        @using (Html.BeginForm("Index", "Parts", FormMethod.Get))
-                        {
-                            <p>
-                                <div class="input-group">
-                                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Search for parts..." })
-                                    @Html.Hidden("prevPagesNum", ViewBag.PartsPerPage as string)
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="submit">Go</button>
-                                    </span>
-                                </div>
-                            </p>
-                        }
-                        @using (Html.BeginForm())
-                        {
-                            <p>
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon3">Parts per page </span>
-                                    @Html.Hidden("prevPagesNum", ViewBag.PartsPerPage as string)
-                                    @Html.DropDownList("pagesNum", new SelectList(new List<string>() { "20", "35", "50", "all" }), new { @class = "form-control", @onchange = "this.form.submit()" })
-
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="submit">Go</button>
-                                    </span>
-                                </div>
-                            </p>
-                        }
-                        <p>
-                            @Html.ActionLink("Create", "Create",null, new { @type = "button", @class="btn btn-primary"})
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="col-md-3" style="padding-right:0px;">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-info">
@@ -72,33 +34,64 @@
                                 var db = new EMBDatabase.Context.EMBContext();
                                 var parts = db.Part.ToList();
                             }
-
+                            @if (!string.IsNullOrEmpty(ViewBag.CurrentFilter))
+                            {
+                                <p class="input-group-lg"> <b>@Model.TotalItemCount</b> results for '<b>@ViewBag.CurrentFilter</b>'</p><br />
+                            }
                             Entries: <b>@parts.Count()</b><br />
                             All parts: <b>@parts.Sum(a => a.Quantity)</b><br />
                             Total worth: <b>@parts.Sum(b => b.Quantity * b.Price)</b><br />
                             Pages: <b>@Model.PageCount</b><br />
 
-                        </p>
-                    </div>
+                            </p>
+                        </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-9">
+        <div class="row" style="margin-bottom :10px;">
+            <div class="col-md-12">
+                <div class="form-inline">
+                    @Html.ActionLink("Create", "Create", null, new { @type = "button", @class = "btn btn-primary" })
+                    <div class="input-group pull-right">
+                        @using (Html.BeginForm("Index", "Parts", FormMethod.Get))
+                        {
+                            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Search for parts..." })
+                            @Html.Hidden("prevPagesNum", ViewBag.PartsPerPage as string)
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">Go</button>
+                            </span>
+                        }
+                    </div>
+                    <div class="pull-right" style="margin-right:10px;" role="group" aria-label="...">
+                        @using (Html.BeginForm("Index", "Parts", FormMethod.Get, new { @name = "paginationForm", @class = "btn-group" }))
+                        {
+                            <input type="submit" class="btn btn-default form-control" name="pagesNum" value="20">
+                            <input type="submit" class="btn btn-default form-control" name="pagesNum" value="35">
+                            <input type="submit" class="btn btn-default form-control" name="pagesNum" value="50">
+                            @Html.Hidden("sortOrder", ViewBag.CurrentSort as string)
+                            @Html.Hidden("currentFilter", ViewBag.CurrentFilter as string)
+                            <input type="submit" class="btn btn-default form-control" name="pagesNum" value="all">
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        All parts
-
+                        @Html.ActionLink("All Parts", "Index")
                     </div>
                     <table class="table table-hover">
                         <tr>
                             <th>
-                                @Html.ActionLink("Number", "Index", new { sortOrder = ViewBag.NumberSortParam, currentFilter = ViewBag.CurrentFilter })
+                                @Html.ActionLink("Number", "Index", new { sortOrder = ViewBag.NumberSortParam, currentFilter = ViewBag.CurrentFilter, prevPagesNum = ViewBag.PartsPerPage })
                             </th>
                             <th>
-                                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
+                                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, prevPagesNum = ViewBag.PartsPerPage })
                             </th>
                             <th>
                                 Voltage

@@ -4,13 +4,15 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using EMBDatabase.Models;
+using MySql.Data.Entity;
 
 namespace EMBDatabase.Context
 {
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class EMBContext : DbContext
     {
         public EMBContext()
-            : base("EmbConnection")
+            : base("MySQLEmbConnection")
         {
             Database.SetInitializer<EMBContext>(null);
         }

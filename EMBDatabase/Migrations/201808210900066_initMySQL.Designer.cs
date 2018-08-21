@@ -7,13 +7,13 @@ namespace EMBDatabase.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class filePath : IMigrationMetadata
+    public sealed partial class initMySQL : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(filePath));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initMySQL));
         
         string IMigrationMetadata.Id
         {
-            get { return "201808130953125_filePath"; }
+            get { return "201808210900066_initMySQL"; }
         }
         
         string IMigrationMetadata.Source

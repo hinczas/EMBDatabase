@@ -55,6 +55,12 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.10.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.10.8\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.10.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.10.8\lib\net452\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -62,8 +68,14 @@
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -164,29 +176,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806290751519_initial.cs" />
-    <Compile Include="Migrations\201806290751519_initial.Designer.cs">
-      <DependentUpon>201806290751519_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806291034290_BigOne.cs" />
-    <Compile Include="Migrations\201806291034290_BigOne.Designer.cs">
-      <DependentUpon>201806291034290_BigOne.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808091446220_fixedKeys.cs" />
-    <Compile Include="Migrations\201808091446220_fixedKeys.Designer.cs">
-      <DependentUpon>201808091446220_fixedKeys.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808100721432_testKeys.cs" />
-    <Compile Include="Migrations\201808100721432_testKeys.Designer.cs">
-      <DependentUpon>201808100721432_testKeys.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808100734072_moreKeys.cs" />
-    <Compile Include="Migrations\201808100734072_moreKeys.Designer.cs">
-      <DependentUpon>201808100734072_moreKeys.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808130953125_filePath.cs" />
-    <Compile Include="Migrations\201808130953125_filePath.Designer.cs">
-      <DependentUpon>201808130953125_filePath.cs</DependentUpon>
+    <Compile Include="Migrations\201808210900066_initMySQL.cs" />
+    <Compile Include="Migrations\201808210900066_initMySQL.Designer.cs">
+      <DependentUpon>201808210900066_initMySQL.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\File.cs" />
@@ -250,7 +242,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -296,30 +290,15 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806290751519_initial.resx">
-      <DependentUpon>201806290751519_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806291034290_BigOne.resx">
-      <DependentUpon>201806291034290_BigOne.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808091446220_fixedKeys.resx">
-      <DependentUpon>201808091446220_fixedKeys.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808100721432_testKeys.resx">
-      <DependentUpon>201808100721432_testKeys.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808100734072_moreKeys.resx">
-      <DependentUpon>201808100734072_moreKeys.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808130953125_filePath.resx">
-      <DependentUpon>201808130953125_filePath.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201808210900066_initMySQL.resx">
+      <DependentUpon>201808210900066_initMySQL.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
