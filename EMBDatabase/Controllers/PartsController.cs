@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using EMBDatabase.Classes;
 using EMBDatabase.Context;
 using EMBDatabase.Models;
 using PagedList;
@@ -196,6 +197,13 @@ namespace EMBDatabase.Controllers
             Part part = db.Part.Find(id);
             db.Part.Remove(part);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Export()
+        {
+            FileService fs = new FileService();
+            fs.ExportToFile();
             return RedirectToAction("Index");
         }
 
