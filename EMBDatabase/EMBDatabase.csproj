@@ -190,6 +190,7 @@
       <DependentUpon>201808210900066_initMySQL.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ExportManufacturer.cs" />
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\ExportPart.cs" />
     <Compile Include="Models\Project.cs" />

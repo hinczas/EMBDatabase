@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using EMBDatabase.Classes;
 using EMBDatabase.Context;
 using EMBDatabase.Models;
 
@@ -122,6 +123,13 @@ namespace EMBDatabase.Controllers
             db.Manufacturer.Remove(manufacturer);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public ActionResult Export()
+        {
+            FileService fs = new FileService();
+            byte[] fileBytes = fs.ExportToFile<Manufacturer, ExportManufacturer>();
+            string fileName = DateTime.Now.ToString("yyMMddHHmmss") + ".Manufacturers.csv";
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
 
         protected override void Dispose(bool disposing)

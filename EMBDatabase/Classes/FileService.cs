@@ -18,19 +18,23 @@ namespace EMBDatabase.Classes
             db = new EMBContext();
         }
 
-        public bool ExportToFile(string savePath = "D:\\")
+        public bool ExportToFile<T1, T2>(string savePath = "D:\\TEMP\\")
+            where T1 : class
         {
-            var allParts = db.Part.ToList();
-            string fileName = "testAM.csv";
+            var allItems = db.Set<T1>().ToList();
+            string fileName = DateTime.Now.ToString("yyMMddHHmmss") + "."+ typeof(T1).Name+ ".csv";
+
+            //var allItems = db.Part.ToList();
 
             bool header = true;
+            //AutoMapper.Mapper.Initialize(cfg => { cfg.CreateMap<T1, T2>(); });
 
             using (StreamWriter writer = System.IO.File.CreateText(Path.Combine(savePath, fileName)))
             {
 
-                foreach (Part part in allParts)
+                foreach (T1 item in (List<T1>)allItems)
                 {
-                    var expPart = AutoMapper.Mapper.Map<Part, ExportPart>(part);
+                    var expPart = AutoMapper.Mapper.Map<T1, T2>(item);
                     if (header)
                     {
 
@@ -60,6 +64,52 @@ namespace EMBDatabase.Classes
                 }
                 return true;
             }
+        }
+
+        public byte[] ExportToFile<T1, T2>()
+            where T1 : class
+        {
+            var allItems = db.Set<T1>().ToList();
+
+            MemoryStream fs = new MemoryStream();
+            TextWriter tx = new StreamWriter(fs);
+
+            //var allItems = db.Part.ToList();
+
+            bool header = true;
+            //AutoMapper.Mapper.Initialize(cfg => { cfg.CreateMap<T1, T2>(); });
+            
+            foreach (T1 item in (List<T1>)allItems)
+            {
+                var expPart = AutoMapper.Mapper.Map<T1, T2>(item);
+                if (header)
+                {
+
+                    var title_list = new List<object>();
+                    foreach (PropertyInfo property in expPart.GetType().GetProperties())
+                    {
+                        title_list.Add(property.Name);
+                    }
+
+                    var headerLine = string.Join(",", title_list);
+                    tx.WriteLine(headerLine);
+
+                    header = false;
+
+                }
+
+                var field_list = new List<object>();
+
+                foreach (PropertyInfo property in expPart.GetType().GetProperties())
+                {
+                    var val = property.GetValue(expPart, null);
+                    field_list.Add(val);
+                }
+
+                var line = string.Join(",", field_list);
+                tx.WriteLine(line);
+            }
+            return fs.ToArray();
         }
     }
 }

@@ -203,8 +203,13 @@ namespace EMBDatabase.Controllers
         public ActionResult Export()
         {
             FileService fs = new FileService();
-            fs.ExportToFile();
-            return RedirectToAction("Index");
+            //fs.ExportToFile<Part, ExportPart>();
+
+            byte[] fileBytes = fs.ExportToFile<Part, ExportPart>();
+            string fileName = DateTime.Now.ToString("yyMMddHHmmss") + ".Parts.csv";
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+
+            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

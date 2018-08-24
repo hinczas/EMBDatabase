@@ -13,6 +13,7 @@ namespace EMBDatabase.App_Start
             AutoMapper.Mapper.Initialize(
                 cfg => {
                     cfg.CreateMap<Part, ExportPart>();
+                    cfg.CreateMap<Manufacturer, ExportManufacturer>();
                 });
         }
     }

@@ -18,6 +18,22 @@
     .form-group {
         white-space: nowrap;
     }
+    .glyphicon {
+        font-size: 15px;
+    }
+
+    .glyphicon-download {
+        font-size: 30px;
+        vertical-align: middle;
+    }
+
+    .form-inline {
+        vertical-align: top;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
 </style>
 <div>
     <p />
@@ -54,7 +70,7 @@
             <div class="col-md-12">
                 <div class="form-inline">
                     @Html.ActionLink("Create", "Create", null, new { @type = "button", @class = "btn btn-primary" })
-                    @Html.ActionLink("Export", "Export", null, new { @type = "button", @class = "btn btn-primary" })
+                    @Html.ActionLink(" ", "Export", null, new { @class = "glyphicon glyphicon-download" })
                     <div class="input-group pull-right">
                         @using (Html.BeginForm("Index", "Parts", FormMethod.Get))
                         {
