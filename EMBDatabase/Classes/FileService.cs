@@ -74,10 +74,8 @@ namespace EMBDatabase.Classes
             MemoryStream fs = new MemoryStream();
             TextWriter tx = new StreamWriter(fs);
 
-            //var allItems = db.Part.ToList();
 
             bool header = true;
-            //AutoMapper.Mapper.Initialize(cfg => { cfg.CreateMap<T1, T2>(); });
             
             foreach (T1 item in (List<T1>)allItems)
             {

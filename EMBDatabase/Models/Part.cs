@@ -13,11 +13,11 @@ namespace EMBDatabase.Models
         [StringLength(50)]
         public string Number { get; set; }
         public string Keywords { get; set; }
-        public decimal Voltage { get; set; }
-        public decimal Current { get; set; }
-        public int Quantity { get; set; }
-        public int Pin_Count { get; set; }
-        public decimal Price { get; set; }
+        public decimal? Voltage { get; set; }
+        public decimal? Current { get; set; }
+        public int? Quantity { get; set; }
+        public int? Pin_Count { get; set; }
+        public decimal? Price { get; set; }
 
 
         [ForeignKey("Manufacturer")]

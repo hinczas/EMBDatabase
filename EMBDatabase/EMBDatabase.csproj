@@ -189,6 +189,10 @@
     <Compile Include="Migrations\201808210900066_initMySQL.Designer.cs">
       <DependentUpon>201808210900066_initMySQL.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808281432478_partNumericsNull.cs" />
+    <Compile Include="Migrations\201808281432478_partNumericsNull.Designer.cs">
+      <DependentUpon>201808281432478_partNumericsNull.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ExportManufacturer.cs" />
     <Compile Include="Models\File.cs" />
@@ -309,6 +313,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201808210900066_initMySQL.resx">
       <DependentUpon>201808210900066_initMySQL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808281432478_partNumericsNull.resx">
+      <DependentUpon>201808281432478_partNumericsNull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
