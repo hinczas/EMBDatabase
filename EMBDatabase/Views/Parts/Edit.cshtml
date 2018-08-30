@@ -1,6 +1,8 @@
 ﻿@model EMBDatabase.Models.Part
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript" src="~/Scripts/bootstrap-tagsinput.js"></script>
+<link href="~/Content/bootstrap-tagsinput.css" rel="stylesheet">
 
 @{
     ViewBag.Title = "Edit Part";
@@ -30,7 +32,7 @@
                     <div class="panel-heading">Actions</div>
                     <div class="panel-body">
                         <p>
-                            @Html.ActionLink(HttpUtility.HtmlDecode("&laquo; Back to part"), "Details" , new { id = Model.Id })
+                            @Html.ActionLink(HttpUtility.HtmlDecode("&laquo; Back to part"), "Details", new { id = Model.Id })
                         </p>
                         <p>
                             @Html.ActionLink(HttpUtility.HtmlDecode("&laquo; Back to list"), "Index", "Parts")
@@ -80,9 +82,9 @@
                     </div>
 
                     <div class="row">
-                        @Html.LabelFor(model => model.Keywords, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Keywords, htmlAttributes: new { @class = "control-label col-md-2"})
                         <div class="col-md-4">
-                            @Html.EditorFor(model => model.Keywords, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.Keywords, new { htmlAttributes = new { @class = "form-control", data_role = "tagsinput" } }) 
                             @Html.ValidationMessageFor(model => model.Keywords, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -183,3 +185,4 @@
         }
     </div>
 </div>
+<script src="../js/bootstrap-tagsinput.js"></script>

@@ -111,13 +111,7 @@
                                 @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, prevPagesNum = ViewBag.PartsPerPage })
                             </th>
                             <th>
-                                Voltage
-                            </th>
-                            <th>
-                                Current
-                            </th>
-                            <th>
-                                Pin Count
+                                Keywords
                             </th>
                             <th>
                                 Price
@@ -138,13 +132,13 @@
                                     @Html.DisplayFor(modelItem => item.Name)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Voltage)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Current)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Pin_Count)
+                                    @if (!string.IsNullOrEmpty(item.Keywords))
+                                    {
+                                        foreach (string link in item.Keywords.Split(','))
+                                        {
+                                            @Html.ActionLink(link+" ", "Index", new { sortOrder = ViewBag.NameSortParam, tagName = link, prevPagesNum = ViewBag.PartsPerPage })
+                                        }
+                                    }
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Price)

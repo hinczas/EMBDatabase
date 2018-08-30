@@ -19,7 +19,7 @@ namespace EMBDatabase.Controllers
         private EMBContext db = new EMBContext();
 
         // GET: Parts
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page, string pagesNum, string prevPagesNum)
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page, string pagesNum, string prevPagesNum, string tagName)
         {
             ViewBag.PartsPerPage = prevPagesNum;
             ViewBag.CurrentSort = sortOrder;
@@ -42,10 +42,17 @@ namespace EMBDatabase.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 parts = parts.Where(s => s.Name.Contains(searchString)
-                                       || s.Number.Contains(searchString)
-                                       || s.Keywords.Contains(searchString)
-                                       || s.Notes.Contains(searchString)
-                                       || s.Description.Contains(searchString));
+                                      || s.Number.Contains(searchString)
+                                      || s.Keywords.Contains(searchString)
+                                      || s.Notes.Contains(searchString)
+                                      || s.Description.Contains(searchString));
+            }
+
+            if (!String.IsNullOrEmpty(tagName))
+            {
+                parts = parts.Where(s => s.Keywords.Contains(","+tagName+ ",")
+                                      || s.Keywords.StartsWith(tagName + ",")
+                                      || s.Keywords.EndsWith("," + tagName));
             }
 
             switch (sortOrder)
