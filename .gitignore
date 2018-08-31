@@ -243,3 +243,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+EMBDatabase/Content/Files/Images/*
+EMBDatabase/Content/Files/Documents/*
