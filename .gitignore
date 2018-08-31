@@ -245,3 +245,5 @@ ModelManifest.xml
 .fake/
 EMBDatabase/Content/Files/Images/*
 EMBDatabase/Content/Files/Documents/*
+!EMBDatabase/Content/Files/Images/.gitkeep
+!EMBDatabase/Content/Files/Documents/.gitkeep
