@@ -31,8 +31,8 @@ namespace EMBDatabase.Controllers
                 if (file.ContentLength > 0)
                 {
                     string _FileName = Path.GetFileName(file.FileName);
-                    string _path = Path.Combine(Server.MapPath("~/Content/Files/"+file_type), _FileName);
-                    string relativePath = "~/Content/Files/" + file_type + "/" + _FileName;
+                    string _path = Path.Combine(Server.MapPath("~/Content/Files/"+file_type), DateTime.Now.ToString("yyMMddHHmmss")+"_"+_FileName);
+                    string relativePath = "~/Content/Files/" + file_type + "/" + DateTime.Now.ToString("yyMMddHHmmss") + "_" + _FileName;
                     file.SaveAs(_path);
                     if (sender.Equals(Constants.FILE_SENDER_PART))
                     {

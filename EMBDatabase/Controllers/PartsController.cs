@@ -164,13 +164,28 @@ namespace EMBDatabase.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Number,Keywords,Voltage,Current,Quantity,Pin_Count,Price,Name,Description,Notes,CreateDate,Manufacturer_Id,Location_Id,Package_Id,Type_Id")] Part part)
+        public ActionResult Edit([Bind(Include = "Id,Number,Keywords,Voltage,Current,Quantity,Pin_Count,Price,Name,Description,Notes,CreateDate,Manufacturer_Id,Location_Id,Package_Id,Type_Id,del_file")] Part part)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(part).State = EntityState.Modified;
 
                 part.UpdateDate = new SqlDateTime(DateTime.Now).Value;
+                var checkboxes = ValueProvider.GetValue("del_file");
+                if (checkboxes!=null)
+                {
+                    var files = checkboxes.AttemptedValue.Replace('/', '\0').Split(',').Select(a=> long.Parse(a)).ToList();
+
+                    foreach (var file in db.File.Where(a => files.Contains(a.Id)))
+                    {
+                        if (System.IO.File.Exists(Server.MapPath(file.File_Path)))
+                        {
+                            System.IO.File.Delete(Server.MapPath(file.File_Path));
+                            db.File.Remove(file);
+                        }                        
+                    }
+                    
+                }
 
                 db.SaveChanges();
                 return RedirectToAction("Index");

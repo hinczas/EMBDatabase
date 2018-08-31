@@ -20,6 +20,16 @@
     select {
         min-width: 150px;
     }
+    .media-object{
+        max-height: 48px;
+        max-width: 48px;
+    }
+    .glyphicon-file {
+        font-size: 32px;
+    }
+    tr {
+        vertical-align:middle;
+    }
 </style>
 <div>
     <p />
@@ -82,9 +92,9 @@
                     </div>
 
                     <div class="row">
-                        @Html.LabelFor(model => model.Keywords, htmlAttributes: new { @class = "control-label col-md-2"})
+                        @Html.LabelFor(model => model.Keywords, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
-                            @Html.EditorFor(model => model.Keywords, new { htmlAttributes = new { @class = "form-control", data_role = "tagsinput" } }) 
+                            @Html.EditorFor(model => model.Keywords, new { htmlAttributes = new { @class = "form-control", data_role = "tagsinput" } })
                             @Html.ValidationMessageFor(model => model.Keywords, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -177,6 +187,55 @@
                                 @Html.DropDownList("Location_Id")
                             </div>
                         </div>
+                    </div>
+                    <div class="row" style="padding:20px;">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    </th>
+                                    <th>
+                                        Files
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var img in Model.File.Where(a => a.File_Type.Equals("Images")).ToList())
+                                {
+                                    <tr>
+                                        <td><input type="checkbox" name="del_file" value=@img.Id /></td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <img class="media-object" src=@Url.Content(img.File_Path) alt="...">
+                                                </div>
+                                                <div class="media-body">
+                                                    @img.Name
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                                @foreach (var doc in Model.File.Where(a => a.File_Type.Equals("Documents")).ToList())
+                                {
+                                    <tr>
+                                        <td><input type="checkbox" name="del_file" value=@doc.Id /></td>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                                                </div>
+                                                <div class="media-body">
+                                                    @doc.Name
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
