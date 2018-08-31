@@ -72,6 +72,15 @@
         </div>
     </div>
     <div class="col-md-9">
+        @*<div class="row">
+            <div class="col-md-3">
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    @Html.ActionLink("Create", "Create", null, new { @type = "button", @class = "btn btn-primary" })
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @type = "button", @class = "btn btn-warning" })
+                    @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { @type = "button", @class = "btn btn-danger", onclick = "return confirm('Are you sure you wish to delete this Part?');" })
+                </div>
+            </div>
+        </div>*@
         <div class="panel panel-success">
             <div class="panel-heading">Part (id : @Model.Id)</div>
             <div class="panel-body">
@@ -89,7 +98,13 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Keywords)
+                        @if (!string.IsNullOrEmpty(@Model.Keywords))
+                        {
+                            foreach (string link in @Model.Keywords.Split(','))
+                            {
+                                @Html.ActionLink(link + " ", "Index", new { tagName = link })
+                            }
+                        }
                     </dd>
 
                     <dt>
@@ -156,7 +171,7 @@
                         @Html.DisplayFor(model => model.Notes)
                     </dd>
 
-                    @*<hr>
+                    <hr>
                     @if (Model.Manufacturer != null)
                     {
                         <dt>
@@ -165,26 +180,34 @@
                         <dd>
                             <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Manufacturer.Id})">@Model.Manufacturer.Name</a>
                         </dd>
-                    }*@
-
-                    @*<dt>
-                        @Html.DisplayNameFor(model => model.Type)
-                    </dt>
-                    <dd>
-                        <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Type.Id})">@Model.Type.Name</a>
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Package)
-                    </dt>
-                    <dd>
-                        <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Package.Id})">@Model.Package.Name</a>
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Location)
-                    </dt>
-                    <dd>
-                        <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Location.Id})">@Model.Location.Name</a>
-                    </dd>*@
+                    }
+                    @if (Model.Type != null)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Type)
+                        </dt>
+                        <dd>
+                            <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Type.Id})">@Model.Type.Name</a>
+                        </dd>
+                    }
+                    @if (Model.Package != null)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Package)
+                        </dt>
+                        <dd>
+                            <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Package.Id})">@Model.Package.Name</a>
+                        </dd>
+                    }
+                    @if (Model.Location != null)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Location)
+                        </dt>
+                        <dd>
+                            <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Location.Id})">@Model.Location.Name</a>
+                        </dd>
+                    }
 
                 </dl>
             </div>
@@ -196,7 +219,7 @@
     <div class="col-md-6">
 
         <div class="panel panel-info">
-            <div class="panel-heading">Images (@Model.File.Where(a => a.File_Type == "Images").Count())</div>
+            <div class="panel-heading">Images <span class="badge">@Model.File.Where(a => a.File_Type == "Images").Count()</span></div>
             <div class="panel-body">
                 @foreach (EMBDatabase.Models.File img in Model.File.Where(a => a.File_Type == "Images"))
                 {
@@ -228,7 +251,7 @@
     </div>
     <div class="col-md-6">
         <div class="panel panel-info">
-            <div class="panel-heading">Documents (@Model.File.Where(a => a.File_Type == "Documents").Count())</div>
+            <div class="panel-heading">Documents <span class="badge">@Model.File.Where(a => a.File_Type == "Documents").Count()</span></div>
             <div class="panel-body">
                 @foreach (EMBDatabase.Models.File doc in Model.File.Where(a => a.File_Type == "Documents"))
                 {
