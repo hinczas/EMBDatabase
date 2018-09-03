@@ -50,6 +50,22 @@ namespace EMBDatabase.Controllers
                             db.SaveChanges();
                         }
                     }
+                    if (sender.Equals(Constants.FILE_SENDER_MAN))
+                    {
+                        var db = new EMBContext();
+                        var manuf = db.Manufacturer.Find(id);
+                        if (manuf != null)
+                        {
+                            manuf.File = new Models.File()
+                            {
+                                Name = _FileName,
+                                File_Path = relativePath,
+                                File_Type = file_type,
+                                CreateDate = DateTime.Now
+                            };
+                            db.SaveChanges();
+                        }
+                    }
                 }
                 ViewBag.Message = "File Uploaded Successfully!!";
                 return RedirectToAction("Details", sender, new { id = id });

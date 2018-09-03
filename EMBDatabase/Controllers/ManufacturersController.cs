@@ -82,7 +82,7 @@ namespace EMBDatabase.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Full_Name,Address,Email,Website,Name,Description,Notes,CreateDate,UpdateDate")] Manufacturer manufacturer)
+        public ActionResult Edit([Bind(Include = "Id,Full_Name,Address,Email,Website,Name,Description,Notes,CreateDate,UpdateDate,del_file")] Manufacturer manufacturer)
         {
             if (ModelState.IsValid)
             {
@@ -90,8 +90,23 @@ namespace EMBDatabase.Controllers
 
                 manufacturer.UpdateDate = new SqlDateTime(DateTime.Now).Value;
 
+                var checkbox = ValueProvider.GetValue("del_file");
+                if (checkbox != null)
+                {
+                    var fid = Int32.Parse(checkbox.AttemptedValue.Replace('/', '\0'));
+                    var file = db.File.Find(fid);
+
+                    if (System.IO.File.Exists(Server.MapPath(file.File_Path)))
+                    {
+                        System.IO.File.Delete(Server.MapPath(file.File_Path));
+                        db.Manufacturer.Find(manufacturer.Id).File = null;
+                        manufacturer.File_Id = null;
+                        db.File.Remove(file);
+                    }
+
+                }
+
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
             return View(manufacturer);
         }

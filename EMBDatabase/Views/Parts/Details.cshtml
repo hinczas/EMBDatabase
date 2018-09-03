@@ -239,7 +239,7 @@
                         @Html.Hidden("sender", "Parts")
                         @Html.Hidden("file_type", "Images")
                         <div class="block">
-                            @Html.TextBox("file", "", new { type = "file" })
+                            @Html.TextBox("file", "", new { type = "file", accept = "image/png, image/jpeg, image/jpg, image/bmp" })
                         </div>
                         <div class="block">
                             <input type="submit" value="Upload" class="btn btn-default" />

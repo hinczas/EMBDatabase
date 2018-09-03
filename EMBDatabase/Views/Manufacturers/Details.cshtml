@@ -16,6 +16,14 @@
     select {
         min-width: 150px;
     }
+    .media-object {
+        max-width: 200px;
+        max-height: 200px;
+    }
+    dt {
+        max-width:100px;
+    }
+    
 </style>
 <div>
     <p />
@@ -32,6 +40,24 @@
                             @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @type = "button", @class = "btn btn-warning" })
                             @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { @type = "button", @class = "btn btn-danger", onclick = "return confirm('Are you sure you wish to delete this Manufacturer?');" })
                         </div>
+                        <br />
+                        Avatar upload:
+                        @using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <div class="containerz">
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(model => model.Id)
+                                @Html.Hidden("sender", "Manufacturers")
+                                @Html.Hidden("file_type", "Images")
+                                <div class="block">
+                                    @Html.TextBox("file", "", new { type = "file" })
+                                </div>
+                                <div class="block">
+                                    <input type="submit" value="Upload" class="btn btn-success pull-right" />
+                                </div>
+                            </div>
+                        }
+                        <br />
                         <br />
                         <p>
                             @Html.ActionLink(HttpUtility.HtmlDecode("&laquo; Back to list"), "Index", "Manufacturers")
@@ -58,119 +84,138 @@
         <div class="panel panel-success">
             <div class="panel-heading">Manufacturer (id : @Model.Id)</div>
             <div class="panel-body">
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Full_Name)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Full_Name)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Address)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Address)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Email)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Email)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Website)
-                    </dt>
-
-                    <dd>
-                        <a href="http://@Model.Website">
-                            @Html.DisplayFor(model => model.Website)
-                        </a>                        
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Name)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Description)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Notes)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Notes)
-                    </dd>
-                    <hr />
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <b>Parts</b> 
-                            (<a href="@Url.Action("Index", "Parts")">
-                                all &raquo;
-                            </a>)
-                        </div>
-                        <table class="table">
-                            <tr>
-                                <th>
-                                    Number
-                                </th>
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Voltage
-                                </th>
-                                <th>
-                                    Current
-                                </th>
-                                <th>
-                                    Quantity
-                                </th>
-                                <th></th>
-                            </tr>
-                            @foreach (var item in Model.Parts)
+                <div class="media">
+                    <div class="media-left media-top">
+                        <a href="#">
+                            @if (@Model.File == null)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Number)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Voltage)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Current)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Quantity)
-                                    </td>
-                                    <td>
-                                        <a href="@Url.Action("Details", "Parts", new { id = item.Id })">
-                                            Go &raquo;
-                                        </a>
-                                    </td>
-                                </tr>
+                                <img class="media-object" src="~/Content/Files/Static/no_photo.png" alt="">
                             }
-                        </table>
+                            else
+                            {
+                                <img class="media-object" src=@Url.Content(Model.File.File_Path) alt="">
+                            }
+
+                        </a>
                     </div>
-                </dl>
+                    <div class="media-body">
+                        <dl class="dl-horizontal">
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Name)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Full_Name)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Full_Name)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Address)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Email)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Website)
+                            </dt>
+
+                            <dd>
+                                <a href="http://@Model.Website">
+                                    @Html.DisplayFor(model => model.Website)
+                                </a>
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Description)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Notes)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Notes)
+                            </dd>
+                        </dl>
+                    </div>
+                            <hr />
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <b>Parts</b>
+                                    (<a href="@Url.Action("Index", "Parts")">
+                                        all &raquo;
+                                    </a>)
+                                </div>
+                                <table class="table">
+                                    <tr>
+                                        <th>
+                                            Number
+                                        </th>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Voltage
+                                        </th>
+                                        <th>
+                                            Current
+                                        </th>
+                                        <th>
+                                            Quantity
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                    @foreach (var item in Model.Parts)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Number)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Voltage)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Current)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Quantity)
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("Details", "Parts", new { id = item.Id })">
+                                                    Go &raquo;
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                </div>
+                
             </div>
         </div>
     </div>
