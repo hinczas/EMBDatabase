@@ -9,7 +9,8 @@ namespace EMBDatabase.Models
     public class Package : BaseModel
     {
 
-        [StringLength(50)]
+        [StringLength(64)]
+        [Index("UI_Name", 2, IsUnique = true)]
         public string Number { get; set; }
 
 

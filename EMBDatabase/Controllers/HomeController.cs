@@ -5,11 +5,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EMBDatabase.Classes;
+using System.Collections.Generic;
+using EMBDatabase.Models;
 
 namespace EMBDatabase.Controllers
 {
     public class HomeController : Controller
     {
+        private EMBContext db = new EMBContext();
+
         public ActionResult Index()
         {
             return View();
@@ -22,6 +26,8 @@ namespace EMBDatabase.Controllers
 
             return View();
         }
+
+        
 
         [HttpPost]
         public ActionResult UploadFile(HttpPostedFileBase file, long id, string sender="", string file_type="")
@@ -36,7 +42,6 @@ namespace EMBDatabase.Controllers
                     file.SaveAs(_path);
                     if (sender.Equals(Constants.FILE_SENDER_PART))
                     {
-                        var db = new EMBContext();
                         var part = db.Part.Find(id);
                         if (part!=null)
                         {

@@ -77,6 +77,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
@@ -91,6 +94,12 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.6\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll</HintPath>
@@ -173,15 +182,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutoMapperConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Classes\Constants.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Classes\DataService.cs" />
     <Compile Include="Classes\FileService.cs" />
     <Compile Include="Context\EMBContext.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManufacturersController.cs" />
     <Compile Include="Controllers\PartsController.cs" />
+    <Compile Include="Controllers\WebApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -197,7 +209,17 @@
     <Compile Include="Migrations\201809031254397_ManufacturerAddFileId.Designer.cs">
       <DependentUpon>201809031254397_ManufacturerAddFileId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809040816597_PartsRemoveNulls.cs" />
+    <Compile Include="Migrations\201809040816597_PartsRemoveNulls.Designer.cs">
+      <DependentUpon>201809040816597_PartsRemoveNulls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809050928409_AddUniqueIndexes.cs" />
+    <Compile Include="Migrations\201809050928409_AddUniqueIndexes.Designer.cs">
+      <DependentUpon>201809050928409_AddUniqueIndexes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\API\GenericResponse.cs" />
+    <Compile Include="Models\API\ApiPart.cs" />
     <Compile Include="Models\ExportManufacturer.cs" />
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\ExportPart.cs" />
@@ -326,6 +348,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809031254397_ManufacturerAddFileId.resx">
       <DependentUpon>201809031254397_ManufacturerAddFileId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809040816597_PartsRemoveNulls.resx">
+      <DependentUpon>201809040816597_PartsRemoveNulls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809050928409_AddUniqueIndexes.resx">
+      <DependentUpon>201809050928409_AddUniqueIndexes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

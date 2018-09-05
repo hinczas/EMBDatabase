@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlTypes;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -56,7 +57,7 @@ namespace EMBDatabase.Controllers
                 manufacturer.CreateDate = new SqlDateTime(DateTime.Now).Value;
                 db.Manufacturer.Add(manufacturer);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = manufacturer.Id });
             }
 
             return View(manufacturer);
@@ -107,6 +108,7 @@ namespace EMBDatabase.Controllers
                 }
 
                 db.SaveChanges();
+                return RedirectToAction("Details", new { id = manufacturer.Id });
             }
             return View(manufacturer);
         }
@@ -145,6 +147,45 @@ namespace EMBDatabase.Controllers
             byte[] fileBytes = fs.ExportToFile<Manufacturer, ExportManufacturer>();
             string fileName = DateTime.Now.ToString("yyMMddHHmmss") + ".Manufacturers.csv";
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        }
+
+        [HttpPost]
+        public ActionResult Import(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (file.ContentLength > 0)
+                {
+                    FileService fs = new FileService();
+
+                    var dbFile = fs.PrepareFile(file);
+
+                    List<Manufacturer> partLines = fs.ImportDelimitedFile<ExportManufacturer, Manufacturer>(dbFile);
+                    foreach (Manufacturer line in partLines)
+                    {
+                        var existingLine = db.Manufacturer.Where(a => a.Full_Name.Equals(line.Full_Name)).FirstOrDefault();
+                        if (existingLine == null)
+                        {
+                            db.Manufacturer.Add(line);
+                        }
+                    }
+
+                    db.SaveChanges();
+
+                    fs.DeleteFile(dbFile);
+
+                }
+                ViewBag.Message = "File Uploaded Successfully!!";
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                ViewBag.Message = "File upload failed!!";
+                return RedirectToAction("Index");
+            }
+
+
+            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

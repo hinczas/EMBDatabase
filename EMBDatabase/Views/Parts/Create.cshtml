@@ -44,7 +44,7 @@
                     <div class="panel-body">
                         <p>
                             Please note, the following fields cannot be left blank:<br />
-                            <b>voltage</b>, <b>current</b>, <b>price</b>, <b>quantity</b>, <b>pin count</b>.
+                            <b>price</b> and <b>quantity</b>.
                         </p>
                     </div>
                 </div>
@@ -113,13 +113,13 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @Value=0.00} })
                                 @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
                             </div>
 
                             @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @Value = 0 } })
                                 @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
                             </div>
                         </div>

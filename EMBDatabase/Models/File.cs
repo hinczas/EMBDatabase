@@ -8,9 +8,11 @@ namespace EMBDatabase.Models
     [Table("File")]
     public class File : BaseModel
     {
-        [StringLength(50)]
+        [StringLength(32)]
         public string File_Type { get; set; }
         public string Hash_Name { get; set; }
+        [StringLength(512)]
+        [Index("UI_Name", 2, IsUnique = true)]
         public string File_Path { get; set; }
 
         public virtual IList<Project> Project { get; set; }

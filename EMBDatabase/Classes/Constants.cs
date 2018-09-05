@@ -12,5 +12,7 @@ namespace EMBDatabase.Classes
 
         public const string FILE_SENDER_PART = "Parts";
         public const string FILE_SENDER_MAN = "Manufacturers";
+
+        public const char FILE_DELIMITER = '\t';
     }
 }

@@ -12,7 +12,8 @@ namespace EMBDatabase.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int64 Id { get; set; }
 
-        [StringLength(50)]
+        [StringLength(64)]
+        [Index("UI_Name", 1, IsUnique = true)]
         public string Name { get; set; }
         public string Description { get; set; }
         public string Notes { get; set; }

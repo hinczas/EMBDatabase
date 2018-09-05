@@ -8,6 +8,8 @@ namespace EMBDatabase.Models
     [Table("PCB")]
     public class PCB : BaseModel
     {
+        [StringLength(16)]
+        [Index("UI_Name", 2, IsUnique = true)]
         public string Version { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }

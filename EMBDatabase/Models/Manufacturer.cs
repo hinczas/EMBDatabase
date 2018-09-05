@@ -8,6 +8,8 @@ namespace EMBDatabase.Models
     [Table("Manufacturer")]
     public class Manufacturer : BaseModel
     {
+        [StringLength(512)]
+        [Index("UI_Name", 2, IsUnique = true)]
         public string Full_Name { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlTypes;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -132,7 +133,7 @@ namespace EMBDatabase.Controllers
 
                 db.Part.Add(part);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = part.Id });
             }
 
             return View(part);
@@ -188,7 +189,7 @@ namespace EMBDatabase.Controllers
                 }
 
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = part.Id });
             }
             return View(part);
         }
@@ -230,6 +231,45 @@ namespace EMBDatabase.Controllers
             byte[] fileBytes = fs.ExportToFile<Part, ExportPart>();
             string fileName = DateTime.Now.ToString("yyMMddHHmmss") + ".Parts.csv";
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+
+            //return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Import(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (file.ContentLength > 0)
+                {
+                    FileService fs = new FileService();
+
+                    var dbFile = fs.PrepareFile(file);
+
+                    List<Part> partLines = fs.ImportDelimitedFile<ExportPart, Part>(dbFile);
+                    foreach(Part line in partLines)
+                    {
+                        var existingLine = db.Part.Where(a => a.Number.Equals(line.Number)).FirstOrDefault();
+                        if (existingLine == null)
+                        {
+                            db.Part.Add(line);
+                        }
+                    }
+
+                    db.SaveChanges();
+
+                    fs.DeleteFile(dbFile);
+
+                }
+                ViewBag.Message = "File Uploaded Successfully!!";
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                ViewBag.Message = "File upload failed!!";
+                return RedirectToAction("Index");
+            }
+
 
             //return RedirectToAction("Index");
         }

@@ -17,6 +17,22 @@
     a:hover {
         text-decoration:none;
     }
+    .inputfile {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+        .inputfile + label {
+            font-size: 1em;
+            font-weight: 100;
+            color: white;
+            display: inline-block;
+            cursor: pointer; /* "hand" cursor */
+        }
 </style>
 <div>
     <p />
@@ -41,8 +57,16 @@
         <div class="row" style="margin-bottom :10px;">
             <div class="col-md-12">
                 <div class="form-inline">
-                    @Html.ActionLink("Create", "Create", null, new { @type = "button", @class = "btn btn-primary" })
-                    @Html.ActionLink(" ", "Export", null, new { @class = "glyphicon glyphicon-download" })
+                    <div class="btn-group pull-left">
+                        @Html.ActionLink("Create", "Create", null, new { @type = "button", @class = "btn btn-primary form-control" })
+                        @Html.ActionLink("Export", "Export", null, new { @class = "btn btn-warning form-control" })
+                        @using (Html.BeginForm("Import", "Manufacturers", FormMethod.Post, new { enctype = "multipart/form-data", @class = "btn-group" }))
+                        {
+                            <input type="file" name="file" id="file" class="inputfile" />
+                            <label for="file" class="btn btn-danger  form-control">Import </label>
+                            <input type="submit" value="OK" class="btn btn-danger  form-control" />
+                        }
+                    </div>
                 </div>
 
             </div>

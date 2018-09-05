@@ -9,8 +9,10 @@ namespace EMBDatabase.Models
     public class Project : BaseModel
     {        
         [StringLength(50)]
+        [Index("UI_Name", 2, IsUnique = true)]
         public string Code { get; set; }
-        [StringLength(50)] 
+        [StringLength(50)]
+        [Index("UI_Name", 3, IsUnique = true)]
         public string Version { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
