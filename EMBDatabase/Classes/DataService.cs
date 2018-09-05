@@ -4,6 +4,7 @@ using EMBDatabase.Models.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
@@ -154,6 +155,38 @@ namespace EMBDatabase.Classes
             {
                 return false;
             }
+        }
+
+        public bool UpdateItem<T>(int id, string fieldName, string fieldValue)
+            where T : class
+        {            
+            System.Type itemType = typeof(T);
+            PropertyInfo itemProperty = itemType.GetProperty(fieldName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+            
+            var itemToUpdate = db.Set<T>().Find(id);
+            
+            if (itemToUpdate != null)
+            {
+                var targetType = itemProperty.PropertyType;
+
+                if (targetType.IsGenericType && targetType.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
+                {
+                    targetType = Nullable.GetUnderlyingType(targetType);
+                }
+
+                if (itemProperty != null && !string.IsNullOrEmpty(fieldValue))
+                {
+                    itemProperty.SetValue(itemToUpdate, Convert.ChangeType(fieldValue, targetType));
+                }
+
+                db.SaveChangesAsync();
+
+                return true;
+            } else
+            {
+                return false;
+            } 
+
         }
     }
 }

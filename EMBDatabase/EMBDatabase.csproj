@@ -188,6 +188,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\DataService.cs" />
+    <Compile Include="Classes\Extensions.cs" />
     <Compile Include="Classes\FileService.cs" />
     <Compile Include="Context\EMBContext.cs" />
     <Compile Include="Controllers\HomeController.cs" />
