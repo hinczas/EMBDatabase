@@ -55,6 +55,18 @@ namespace EMBDatabase.Classes
             return locs;
         }
 
+        public ExportPackage GetPackage(int id)
+        {
+            var item = db.Package.Where(a => a.Id == id).FirstOrDefault();
+            var eitem = AutoMapper.Mapper.Map<ExportPackage>(item);
+            return eitem;
+        }
+        public List<ExportPackage> GetPackages()
+        {
+            var items = AutoMapper.Mapper.Map<List<ExportPackage>>(db.Package.ToList());
+            return items;
+        }
+
         public bool AddPart(ApiPart apiPart)
         {
             // Manufacturer setup

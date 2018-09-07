@@ -194,6 +194,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\ManufacturersController.cs" />
+    <Compile Include="Controllers\PackagesController.cs" />
     <Compile Include="Controllers\PartsController.cs" />
     <Compile Include="Controllers\WebApiController.cs" />
     <Compile Include="Global.asax.cs">
@@ -226,6 +227,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\API\GenericResponse.cs" />
     <Compile Include="Models\API\ApiPart.cs" />
+    <Compile Include="Models\ExportPackage.cs" />
     <Compile Include="Models\ExportManufacturer.cs" />
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\ExportPart.cs" />
@@ -334,6 +336,11 @@
     <Content Include="Views\Locations\Details.cshtml" />
     <Content Include="Views\Locations\Edit.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
+    <Content Include="Views\Packages\Create.cshtml" />
+    <Content Include="Views\Packages\Delete.cshtml" />
+    <Content Include="Views\Packages\Details.cshtml" />
+    <Content Include="Views\Packages\Edit.cshtml" />
+    <Content Include="Views\Packages\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

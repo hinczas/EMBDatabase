@@ -71,6 +71,38 @@ namespace EMBDatabase.Controllers
                             db.SaveChanges();
                         }
                     }
+                    if (sender.Equals(Constants.FILE_SENDER_LOC))
+                    {
+                        var db = new EMBContext();
+                        var item = db.Location.Find(id);
+                        if (item != null)
+                        {
+                            item.File = new Models.File()
+                            {
+                                Name = _FileName,
+                                File_Path = relativePath,
+                                File_Type = file_type,
+                                CreateDate = DateTime.Now
+                            };
+                            db.SaveChanges();
+                        }
+                    }
+                    if (sender.Equals(Constants.FILE_SENDER_PCK))
+                    {
+                        var db = new EMBContext();
+                        var item = db.Package.Find(id);
+                        if (item != null)
+                        {
+                            item.File = new Models.File()
+                            {
+                                Name = _FileName,
+                                File_Path = relativePath,
+                                File_Type = file_type,
+                                CreateDate = DateTime.Now
+                            };
+                            db.SaveChanges();
+                        }
+                    }
                 }
                 ViewBag.Message = "File Uploaded Successfully!!";
                 return RedirectToAction("Details", sender, new { id = id });

@@ -24,6 +24,8 @@ namespace EMBDatabase.App_Start
                     cfg.CreateMap<ApiPart, Part>();
                     cfg.CreateMap<ExportLocation, Location>();
                     cfg.CreateMap<Location, ExportLocation>();
+                    cfg.CreateMap<Package, ExportPackage>();
+                    cfg.CreateMap<ExportPackage, Package>();
                 });
         }
     }

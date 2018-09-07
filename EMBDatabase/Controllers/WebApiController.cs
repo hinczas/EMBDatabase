@@ -62,6 +62,20 @@ namespace EMBDatabase.Controllers
             return _ds.GetLocation(id);
         }
 
+
+        [Route("api/WebApi/GetAllPackages")]
+        [HttpGet]
+        public List<ExportPackage> GetAllPackages()
+        {
+            return _ds.GetPackages();
+        }
+        [Route("api/WebApi/GetPackage")]
+        [HttpGet]
+        public ExportPackage GetPackage(int id)
+        {
+            return _ds.GetPackage(id);
+        }
+
         [Route("api/WebApi/AddPart")]
         [HttpPost]
         public GenericResponse AddPart([FromUri] ApiPart apiPart)
