@@ -1,22 +1,26 @@
-﻿@model IEnumerable<EMBDatabase.Models.Manufacturer>
+﻿@model IEnumerable<EMBDatabase.Models.Location>
 
 @{
-    ViewBag.Title = "Manufacturers";
+    ViewBag.Title = "Locations";
 }
 <style>
     .glyphicon {
         font-size: 15px;
     }
+
     .glyphicon-download {
         font-size: 30px;
         vertical-align: middle;
     }
+
     .form-inline {
         vertical-align: top;
     }
+
     a:hover {
-        text-decoration:none;
+        text-decoration: none;
     }
+
     .inputfile {
         width: 0.1px;
         height: 0.1px;
@@ -46,7 +50,7 @@
                     <div class="panel-body">
                         <p>
                             Entries: <b>@Model.Count()</b><br />
-                            Manufacturer parts: <b>@Model.Select(a => a.Parts.Count()).Sum()</b><br />
+                            Location parts: <b>@Model.Select(a => a.Parts.Count()).Sum()</b><br />
                         </p>
                     </div>
                 </div>
@@ -60,7 +64,7 @@
                     <div class="btn-group pull-left">
                         @Html.ActionLink("Create", "Create", null, new { @type = "button", @class = "btn btn-primary form-control" })
                         @Html.ActionLink("Export", "Export", null, new { @class = "btn btn-warning form-control" })
-                        @using (Html.BeginForm("Import", "Manufacturers", FormMethod.Post, new { enctype = "multipart/form-data", @class = "btn-group" }))
+                        @using (Html.BeginForm("Import", "Locations", FormMethod.Post, new { enctype = "multipart/form-data", @class = "btn-group" }))
                         {
                             <input type="file" name="file" id="file" class="inputfile" />
                             <label for="file" class="btn btn-danger  form-control">Import </label>
@@ -75,7 +79,7 @@
             <div class="col-md-12">
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        @Html.ActionLink("All Manufacturers", "Index")
+                        @Html.ActionLink("All Locations", "Index")
                     </div>
                     <table class="table table-hover">
                         <tr>
@@ -83,19 +87,7 @@
                                 @Html.DisplayNameFor(model => model.Name)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Full_Name)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Website)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Email)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Address)
-                            </th>
-                            <th>
-                                Man Parts
+                                Location Parts
                             </th>
                             <th>
                                 All Parts
@@ -110,28 +102,16 @@
                                     @Html.ActionLink(item.Name, "Details", new { id = item.Id })
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Full_Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Website)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Email)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Address)
-                                </td>
-                                <td>
                                     @item.Parts.Count()
                                 </td>
                                 <td>
                                     @item.Parts.Select(a => a.Quantity).Sum()
                                 </td>
                                 <td>
-                                    <a href="@Url.Action("Edit", "Manufacturers", new { id = item.Id })">
+                                    <a href="@Url.Action("Edit", "Locations", new { id = item.Id })">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                     </a>
-                                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { onclick = "return confirm('Are you sure you wish to delete this Manufacturer?');", @class = "glyphicon glyphicon-remove" })
+                                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { onclick = "return confirm('Are you sure you wish to delete this Location?');", @class = "glyphicon glyphicon-remove" })
                                 </td>
                             </tr>
                         }

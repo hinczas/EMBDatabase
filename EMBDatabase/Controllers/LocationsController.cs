@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlTypes;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -14,82 +13,82 @@ using EMBDatabase.Models;
 
 namespace EMBDatabase.Controllers
 {
-    public class ManufacturersController : Controller
+    public class LocationsController : Controller
     {
         private EMBContext db = new EMBContext();
 
-        // GET: Manufacturers
+        // GET: Locations
         public ActionResult Index()
         {
-            return View(db.Manufacturer.ToList());
+            return View(db.Location.ToList());
         }
 
-        // GET: Manufacturers/Details/5
+        // GET: Locations/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Manufacturer manufacturer = db.Manufacturer.Find(id);
-            if (manufacturer == null)
+            Location location = db.Location.Find(id);
+            if (location == null)
             {
                 return HttpNotFound();
             }
-            return View(manufacturer);
+            return View(location);
         }
 
-        // GET: Manufacturers/Create
+        // GET: Locations/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Manufacturers/Create
+        // POST: Locations/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Full_Name,Address,Email,Website,Name,Description,Notes,CreateDate,UpdateDate")] Manufacturer manufacturer)
+        public ActionResult Create([Bind(Include = "Id,File_Id,Name,Description,Notes,CreateDate,UpdateDate")] Location location)
         {
             if (ModelState.IsValid)
             {
-                manufacturer.CreateDate = new SqlDateTime(DateTime.Now).Value;
-                db.Manufacturer.Add(manufacturer);
+                location.CreateDate = new SqlDateTime(DateTime.Now).Value;
+                db.Location.Add(location);
                 db.SaveChanges();
-                return RedirectToAction("Details", new { id = manufacturer.Id });
+                return RedirectToAction("Details", new { id = location.Id });
             }
 
-            return View(manufacturer);
+            return View(location);
         }
 
-        // GET: Manufacturers/Edit/5
+        // GET: Locations/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Manufacturer manufacturer = db.Manufacturer.Find(id);
-            if (manufacturer == null)
+            Location location = db.Location.Find(id);
+            if (location == null)
             {
                 return HttpNotFound();
             }
-            return View(manufacturer);
+            return View(location);
         }
 
-        // POST: Manufacturers/Edit/5
+        // POST: Locations/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Full_Name,Address,Email,Website,Name,Description,Notes,CreateDate,UpdateDate,del_file")] Manufacturer manufacturer)
+        public ActionResult Edit([Bind(Include = "Id,File_Id,Name,Description,Notes,CreateDate,UpdateDate,del_file")] Location location)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(manufacturer).State = EntityState.Modified;
+                db.Entry(location).State = EntityState.Modified;
 
-                manufacturer.UpdateDate = new SqlDateTime(DateTime.Now).Value;
+                location.UpdateDate = new SqlDateTime(DateTime.Now).Value;
 
                 var checkbox = ValueProvider.GetValue("del_file");
                 if (checkbox != null)
@@ -100,52 +99,53 @@ namespace EMBDatabase.Controllers
                     if (System.IO.File.Exists(Server.MapPath(file.File_Path)))
                     {
                         System.IO.File.Delete(Server.MapPath(file.File_Path));
-                        db.Manufacturer.Find(manufacturer.Id).File = null;
-                        manufacturer.File_Id = null;
+                        db.Manufacturer.Find(location.Id).File = null;
+                        location.File_Id = null;
                         db.File.Remove(file);
                     }
 
                 }
 
                 db.SaveChanges();
-                return RedirectToAction("Details", new { id = manufacturer.Id });
+                return RedirectToAction("Details", new { id = location.Id });
             }
-            return View(manufacturer);
+            return View(location);
         }
 
-        // GET: Manufacturers/Delete/5
+        // GET: Locations/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Manufacturer manufacturer = db.Manufacturer.Find(id);
-            if (manufacturer == null)
+            Location location = db.Location.Find(id);
+            if (location == null)
             {
                 return HttpNotFound();
             }
-            db.Manufacturer.Remove(manufacturer);
+            db.Location.Remove(location);
             db.SaveChanges();
             return RedirectToAction("Index");
-            //return View(manufacturer);
+            //return View(location);
         }
 
-        // POST: Manufacturers/Delete/5
+        // POST: Locations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Manufacturer manufacturer = db.Manufacturer.Find(id);
-            db.Manufacturer.Remove(manufacturer);
+            Location location = db.Location.Find(id);
+            db.Location.Remove(location);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
         public ActionResult Export()
         {
             FileService fs = new FileService();
-            byte[] fileBytes = fs.ExportToFile<Manufacturer, ExportManufacturer>();
-            string fileName = DateTime.Now.ToString("yyMMddHHmmss") + ".Manufacturers.tsv";
+            byte[] fileBytes = fs.ExportToFile<Location, ExportLocation>();
+            string fileName = DateTime.Now.ToString("yyMMddHHmmss") + ".Locations.tsv";
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
 
@@ -160,13 +160,13 @@ namespace EMBDatabase.Controllers
 
                     var dbFile = fs.PrepareFile(file);
 
-                    List<Manufacturer> partLines = fs.ImportDelimitedFile<ExportManufacturer, Manufacturer>(dbFile);
-                    foreach (Manufacturer line in partLines)
+                    List<Location> partLines = fs.ImportDelimitedFile<ExportLocation, Location>(dbFile);
+                    foreach (Location line in partLines)
                     {
-                        var existingLine = db.Manufacturer.Where(a => a.Full_Name.Equals(line.Full_Name)).FirstOrDefault();
+                        var existingLine = db.Location.Where(a => a.Name.Equals(line.Name)).FirstOrDefault();
                         if (existingLine == null)
                         {
-                            db.Manufacturer.Add(line);
+                            db.Location.Add(line);
                         }
                     }
 

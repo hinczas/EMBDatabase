@@ -229,7 +229,7 @@ namespace EMBDatabase.Controllers
             //fs.ExportToFile<Part, ExportPart>();
 
             byte[] fileBytes = fs.ExportToFile<Part, ExportPart>();
-            string fileName = DateTime.Now.ToString("yyMMddHHmmss") + ".Parts.csv";
+            string fileName = DateTime.Now.ToString("yyMMddHHmmss") + ".Parts.tsv";
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
 
             //return RedirectToAction("Index");

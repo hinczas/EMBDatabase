@@ -192,6 +192,7 @@
     <Compile Include="Classes\FileService.cs" />
     <Compile Include="Context\EMBContext.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\ManufacturersController.cs" />
     <Compile Include="Controllers\PartsController.cs" />
     <Compile Include="Controllers\WebApiController.cs" />
@@ -218,12 +219,17 @@
     <Compile Include="Migrations\201809050928409_AddUniqueIndexes.Designer.cs">
       <DependentUpon>201809050928409_AddUniqueIndexes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809070857390_AddLocationsImpl.cs" />
+    <Compile Include="Migrations\201809070857390_AddLocationsImpl.Designer.cs">
+      <DependentUpon>201809070857390_AddLocationsImpl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\API\GenericResponse.cs" />
     <Compile Include="Models\API\ApiPart.cs" />
     <Compile Include="Models\ExportManufacturer.cs" />
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\ExportPart.cs" />
+    <Compile Include="Models\ExportLocation.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\PCB.cs" />
     <Compile Include="Models\Location.cs" />
@@ -323,6 +329,11 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Locations\Create.cshtml" />
+    <Content Include="Views\Locations\Delete.cshtml" />
+    <Content Include="Views\Locations\Details.cshtml" />
+    <Content Include="Views\Locations\Edit.cshtml" />
+    <Content Include="Views\Locations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -355,6 +366,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809050928409_AddUniqueIndexes.resx">
       <DependentUpon>201809050928409_AddUniqueIndexes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809070857390_AddLocationsImpl.resx">
+      <DependentUpon>201809070857390_AddLocationsImpl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

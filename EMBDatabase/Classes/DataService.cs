@@ -31,6 +31,30 @@ namespace EMBDatabase.Classes
             return parts;
         }
 
+        public ExportManufacturer GetManufacturer(int id)
+        {
+            var man = db.Manufacturer.Where(a => a.Id == id).FirstOrDefault();
+            var eman = AutoMapper.Mapper.Map<ExportManufacturer>(man);
+            return eman;
+        }
+        public List<ExportManufacturer> GetManufacturers()
+        {
+            var mans = AutoMapper.Mapper.Map<List<ExportManufacturer>>(db.Manufacturer.ToList());
+            return mans;
+        }
+
+        public ExportLocation GetLocation(int id)
+        {
+            var loc = db.Location.Where(a => a.Id == id).FirstOrDefault();
+            var eloc = AutoMapper.Mapper.Map<ExportLocation>(loc);
+            return eloc;
+        }
+        public List<ExportLocation> GetLocations()
+        {
+            var locs = AutoMapper.Mapper.Map<List<ExportLocation>>(db.Location.ToList());
+            return locs;
+        }
+
         public bool AddPart(ApiPart apiPart)
         {
             // Manufacturer setup
@@ -157,6 +181,13 @@ namespace EMBDatabase.Classes
             }
         }
 
+        public T GetItem<T>(int id)
+            where T: BaseModel
+        {
+            var result = db.Set<T>().Where(a => a.Id == id).FirstOrDefault();
+            return result;
+        }
+        
         public bool UpdateItem<T>(int id, string fieldName, string fieldValue)
             where T : class
         {            

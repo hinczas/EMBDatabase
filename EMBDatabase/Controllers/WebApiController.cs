@@ -27,12 +27,39 @@ namespace EMBDatabase.Controllers
         {
             return _ds.GetParts();
         }
-
         [Route("api/WebApi/GetPart")]
         [HttpGet]
         public ApiPart GetPart(int id)
         {
             return _ds.GetPart(id);
+        }
+
+
+        [Route("api/WebApi/GetAllManufacturers")]
+        [HttpGet]
+        public List<ExportManufacturer> GetAllManufacturers()
+        {
+            return _ds.GetManufacturers();
+        }
+        [Route("api/WebApi/GetManufacturer")]
+        [HttpGet]
+        public ExportManufacturer GetManufacturer(int id)
+        {
+            return _ds.GetManufacturer(id);
+        }
+
+
+        [Route("api/WebApi/GetAllLocations")]
+        [HttpGet]
+        public List<ExportLocation> GetAllLocations()
+        {
+            return _ds.GetLocations();
+        }
+        [Route("api/WebApi/GetLocation")]
+        [HttpGet]
+        public ExportLocation GetLocation(int id)
+        {
+            return _ds.GetLocation(id);
         }
 
         [Route("api/WebApi/AddPart")]

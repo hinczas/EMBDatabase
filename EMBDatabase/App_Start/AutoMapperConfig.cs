@@ -22,6 +22,8 @@ namespace EMBDatabase.App_Start
                         .ForMember(p => p.Package_Name, opts => opts.MapFrom(s => s.Package.Name))
                         .ForMember(p => p.Type_Name, opts => opts.MapFrom(s => s.Type.Name));
                     cfg.CreateMap<ApiPart, Part>();
+                    cfg.CreateMap<ExportLocation, Location>();
+                    cfg.CreateMap<Location, ExportLocation>();
                 });
         }
     }

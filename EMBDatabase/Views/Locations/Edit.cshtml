@@ -1,0 +1,130 @@
+﻿@model EMBDatabase.Models.Location
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+@{
+    ViewBag.Title = "Edit Location";
+}
+<style>
+    .row {
+        padding-bottom: 5px;
+    }
+
+    textarea {
+        width: 250px;
+        height: 100px;
+    }
+
+    select {
+        min-width: 150px;
+    }
+
+    .media-object {
+        max-height: 48px;
+        max-width: 48px;
+    }
+
+    .glyphicon-file {
+        font-size: 32px;
+    }
+
+    tr {
+        vertical-align: middle;
+    }
+</style>
+<div>
+    <p />
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">Actions</div>
+                    <div class="panel-body">
+                        <p>
+                            @Html.ActionLink(HttpUtility.HtmlDecode("&laquo; Back to location"), "Details", new { id = Model.Id })
+                        </p>
+                        <p>
+                            @Html.ActionLink(HttpUtility.HtmlDecode("&laquo; Back to list"), "Index", "Locations")
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Info</div>
+                    <div class="panel-body">
+                        <p>
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="panel panel-success">
+                <div class="panel-heading">Location (id : @Model.Id)</div>
+                <div class="panel-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        @if (Model.File != null)
+                        {
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Avatar</label>
+                                <div class="col-md-4">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <img class="media-object" src=@Url.Content(Model.File.File_Path) alt="...">
+                                        </div>
+                                        <div class="media-body">
+                                            @Model.File.Name  (delete <input type="checkbox" name="del_file" value=@Model.File.Id />)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right"><input type="submit" value="Save" class="btn btn-success" /></div>
+            </div>
+        }
+    </div>
+</div>
+

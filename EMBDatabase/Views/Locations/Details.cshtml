@@ -1,0 +1,189 @@
+﻿@model EMBDatabase.Models.Location
+
+@{
+    ViewBag.Title = "Location";
+}
+<style>
+    .row {
+        padding-bottom: 5px;
+    }
+
+    textarea {
+        width: 250px;
+        height: 100px;
+    }
+
+    select {
+        min-width: 150px;
+    }
+
+    .media-object {
+        max-width: 200px;
+        max-height: 200px;
+    }
+
+    dt {
+        max-width: 100px;
+    }
+</style>
+<div>
+    <p />
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">Actions</div>
+                    <div class="panel-body">
+                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                            @Html.ActionLink("Create", "Create", null, new { @type = "button", @class = "btn btn-primary" })
+                            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @type = "button", @class = "btn btn-warning" })
+                            @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { @type = "button", @class = "btn btn-danger", onclick = "return confirm('Are you sure you wish to delete this Location?');" })
+                        </div>
+                        <br />
+                        Avatar upload:
+                        @using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <div class="containerz">
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(model => model.Id)
+                                @Html.Hidden("sender", "Locations")
+                                @Html.Hidden("file_type", "Images")
+                                <div class="block">
+                                    @Html.TextBox("file", "", new { type = "file" })
+                                </div>
+                                <div class="block">
+                                    <input type="submit" value="Upload" class="btn btn-success pull-right" />
+                                </div>
+                            </div>
+                        }
+                        <br />
+                        <br />
+                        <p>
+                            @Html.ActionLink(HttpUtility.HtmlDecode("&laquo; Back to list"), "Index", "Locations")
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Info</div>
+                    <div class="panel-body">
+                        <p><b>@Html.DisplayNameFor(model => model.CreateDate) :</b> @Html.DisplayFor(model => model.CreateDate)</p>
+                        <p><b>@Html.DisplayNameFor(model => model.UpdateDate) :</b> @Html.DisplayFor(model => model.UpdateDate)</p>
+                        <p><b>Manufacturer parts :</b> @Model.Parts.Count()</p>
+                        <p><b>Total parts :</b> @Model.Parts.Select(a => a.Quantity).Sum()</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="panel panel-success">
+            <div class="panel-heading">Manufacturer (id : @Model.Id)</div>
+            <div class="panel-body">
+                <div class="media">
+                    <div class="media-left media-top">
+                        <a href="#">
+                            @if (@Model.File == null)
+                            {
+                                <img class="media-object" src="~/Content/Files/Static/no_photo.png" alt="">
+                            }
+                            else
+                            {
+                                <img class="media-object" src=@Url.Content(Model.File.File_Path) alt="">
+                            }
+
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <dl class="dl-horizontal">
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Name)
+                            </dd>                           
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Description)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Notes)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Notes)
+                            </dd>
+                        </dl>
+                    </div>
+                    <hr />
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <b>Parts</b>
+                            (<a href="@Url.Action("Index", "Parts")">
+                                all &raquo;
+                            </a>)
+                        </div>
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    Number
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Voltage
+                                </th>
+                                <th>
+                                    Current
+                                </th>
+                                <th>
+                                    Quantity
+                                </th>
+                                <th></th>
+                            </tr>
+                            @foreach (var item in Model.Parts)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Number)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Voltage)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Current)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Quantity)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Details", "Parts", new { id = item.Id })">
+                                            Go &raquo;
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
