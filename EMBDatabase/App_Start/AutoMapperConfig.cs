@@ -26,6 +26,8 @@ namespace EMBDatabase.App_Start
                     cfg.CreateMap<Location, ExportLocation>();
                     cfg.CreateMap<Package, ExportPackage>();
                     cfg.CreateMap<ExportPackage, Package>();
+                    cfg.CreateMap<Models.Type, ExportType>();
+                    cfg.CreateMap<ExportType, Models.Type>();
                 });
         }
     }

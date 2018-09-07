@@ -76,6 +76,19 @@ namespace EMBDatabase.Controllers
             return _ds.GetPackage(id);
         }
 
+        [Route("api/WebApi/GetAllTypes")]
+        [HttpGet]
+        public List<ExportType> GetAllTypes()
+        {
+            return _ds.GetTypes();
+        }
+        [Route("api/WebApi/GetPackage")]
+        [HttpGet]
+        public ExportType GetType(int id)
+        {
+            return _ds.GetType(id);
+        }
+
         [Route("api/WebApi/AddPart")]
         [HttpPost]
         public GenericResponse AddPart([FromUri] ApiPart apiPart)

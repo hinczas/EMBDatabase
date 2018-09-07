@@ -67,6 +67,18 @@ namespace EMBDatabase.Classes
             return items;
         }
 
+        public ExportType GetType(int id)
+        {
+            var item = db.Type.Where(a => a.Id == id).FirstOrDefault();
+            var eitem = AutoMapper.Mapper.Map<ExportType>(item);
+            return eitem;
+        }
+        public List<ExportType> GetTypes()
+        {
+            var items = AutoMapper.Mapper.Map<List<ExportType>>(db.Type.ToList());
+            return items;
+        }
+
         public bool AddPart(ApiPart apiPart)
         {
             // Manufacturer setup
