@@ -22,7 +22,7 @@ namespace EMBDatabase.Context
         public virtual DbSet<File> File { get; set; }
         public virtual DbSet<Location> Location { get; set; }
         public virtual DbSet<Package> Package { get; set; }
-        public virtual DbSet<PCB> PCB { get; set; }
+        public virtual DbSet<Module> PCB { get; set; }
         public virtual DbSet<Project> Project { get; set; }
         public virtual DbSet<Models.Type> Type { get; set; }
     }

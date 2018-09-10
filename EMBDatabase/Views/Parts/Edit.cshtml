@@ -202,7 +202,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var img in Model.File.Where(a => a.File_Type.Equals("Images")).ToList())
+                                @foreach (var img in Model.Files.Where(a => a.File_Type.Equals("Images")).ToList())
                                 {
                                     <tr>
                                         <td><input type="checkbox" name="del_file" value=@img.Id /></td>
@@ -218,7 +218,7 @@
                                         </td>
                                     </tr>
                                 }
-                                @foreach (var doc in Model.File.Where(a => a.File_Type.Equals("Documents")).ToList())
+                                @foreach (var doc in Model.Files.Where(a => a.File_Type.Equals("Documents")).ToList())
                                 {
                                     <tr>
                                         <td><input type="checkbox" name="del_file" value=@doc.Id /></td>

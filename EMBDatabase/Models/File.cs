@@ -15,8 +15,8 @@ namespace EMBDatabase.Models
         [Index("UI_Name", 2, IsUnique = true)]
         public string File_Path { get; set; }
 
-        public virtual IList<Project> Project { get; set; }
-        public virtual IList<Part> Part { get; set; }
-        public virtual IList<PCB> PCB { get; set; }
+        public virtual IList<Project> Projects { get; set; }
+        public virtual IList<Part> Parts { get; set; }
+        public virtual IList<Module> Modules { get; set; }
     }
 }

@@ -34,9 +34,9 @@ namespace EMBDatabase.Models
         public long? Type_Id { get; set; }
         public virtual Type Type { get; set; }
 
-        public virtual IList<PCB> PCB { get; set; }
-        public virtual IList<File> File { get; set; }
-        public virtual IList<Project> Project { get; set; }
+        public virtual IList<Module> Modules { get; set; }
+        public virtual IList<File> Files { get; set; }
+        public virtual IList<Project> Projects { get; set; }
 
     }
 }

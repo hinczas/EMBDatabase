@@ -45,7 +45,7 @@ namespace EMBDatabase.Controllers
                         var part = db.Part.Find(id);
                         if (part!=null)
                         {
-                            part.File.Add(new Models.File()
+                            part.Files.Add(new Models.File()
                             {
                                 Name = _FileName,
                                 File_Path = relativePath,

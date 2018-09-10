@@ -24,7 +24,7 @@ namespace EMBDatabase.Models
 
         public virtual IList<File> File { get; set; }
         public virtual IList<Part> Part { get; set; }
-        public virtual IList<PCB> PCB { get; set; }
+        public virtual IList<Module> PCB { get; set; }
 
 
     }

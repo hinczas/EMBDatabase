@@ -225,6 +225,14 @@
     <Compile Include="Migrations\201809070857390_AddLocationsImpl.Designer.cs">
       <DependentUpon>201809070857390_AddLocationsImpl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809101201391_pcbToModules.cs" />
+    <Compile Include="Migrations\201809101201391_pcbToModules.Designer.cs">
+      <DependentUpon>201809101201391_pcbToModules.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809101204578_modulesIntr.cs" />
+    <Compile Include="Migrations\201809101204578_modulesIntr.Designer.cs">
+      <DependentUpon>201809101204578_modulesIntr.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\API\GenericResponse.cs" />
     <Compile Include="Models\API\ApiPart.cs" />
@@ -235,7 +243,7 @@
     <Compile Include="Models\ExportPart.cs" />
     <Compile Include="Models\ExportLocation.cs" />
     <Compile Include="Models\Project.cs" />
-    <Compile Include="Models\PCB.cs" />
+    <Compile Include="Models\Module.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Manufacturer.cs" />
     <Compile Include="Models\BaseModel.cs" />
@@ -262,6 +270,7 @@
     <Content Include="Scripts\bootstrap-tagsinput.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CustomModal.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -383,6 +392,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809070857390_AddLocationsImpl.resx">
       <DependentUpon>201809070857390_AddLocationsImpl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809101201391_pcbToModules.resx">
+      <DependentUpon>201809101201391_pcbToModules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809101204578_modulesIntr.resx">
+      <DependentUpon>201809101204578_modulesIntr.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
