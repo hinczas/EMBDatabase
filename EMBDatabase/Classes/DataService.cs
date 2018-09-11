@@ -79,7 +79,7 @@ namespace EMBDatabase.Classes
             return items;
         }
 
-        public bool AddPart(ApiPart apiPart)
+        public long AddPart(ApiPart apiPart)
         {
             // Manufacturer setup
             if (apiPart.Manufacturer_Id==null)
@@ -198,10 +198,45 @@ namespace EMBDatabase.Classes
                 db.Part.Add(part);
                 db.SaveChangesAsync();
 
-                return true;
+                return part.Id;
             } catch
             {
-                return false;
+                return 0;
+            }
+        }
+
+        public long AddManufacturer (Manufacturer manuf)
+        {
+            try
+            {
+                manuf.CreateDate = DateTime.Now;
+
+                db.Manufacturer.Add(manuf);
+                db.SaveChangesAsync();
+
+                return manuf.Id;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public long AddItem<T>(T item)
+            where T : BaseModel
+        {
+            try
+            {
+                item.CreateDate = DateTime.Now;
+
+                db.Set<T>().Add(item);
+                db.SaveChangesAsync();
+
+                return item.Id;
+            }
+            catch
+            {
+                return 0;
             }
         }
 

@@ -18,17 +18,21 @@
     }
 
     select {
-        min-width: 150px;
+        min-width: 220px;
+        max-width: 220px;
     }
-    .media-object{
+
+    .media-object {
         max-height: 48px;
         max-width: 48px;
     }
+
     .glyphicon-file {
         font-size: 32px;
     }
+
     tr {
-        vertical-align:middle;
+        vertical-align: middle;
     }
 </style>
 <div>
@@ -66,7 +70,7 @@
         </div>
     </div>
     <div class="col-md-9">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm(new { @id = "oldForm" }))
         {
             @Html.AntiForgeryToken()
             <div class="panel panel-success">
@@ -166,12 +170,20 @@
                             @Html.LabelFor(model => model.Type_Id, "Type", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
                                 @Html.DropDownList("Type_Id")
+                                <a href="#" data-toggle="modal" data-target="#typModal">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </a>
+
                             </div>
 
                             @Html.LabelFor(model => model.Manufacturer_Id, "Manufacturer", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
                                 @Html.DropDownList("Manufacturer_Id")
+                                <a href="#" data-toggle="modal" data-target="#exampleModal">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </a>
                             </div>
+
                         </div>
                     </div>
                     <div class="row">
@@ -180,11 +192,17 @@
                             @Html.LabelFor(model => model.Package_Id, "Package", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
                                 @Html.DropDownList("Package_Id")
+                                <a href="#" data-toggle="modal" data-target="#pacModal">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </a>
                             </div>
 
                             @Html.LabelFor(model => model.Location_Id, "Location", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
                                 @Html.DropDownList("Location_Id")
+                                <a href="#" data-toggle="modal" data-target="#locModal">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -242,6 +260,171 @@
                 <div class="panel-footer text-right"><input type="submit" value="Save" class="btn btn-success" /></div>
             </div>
         }
+        <!-- Manufacturer Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New Manufacturer</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form class="manModalForm" id="manModalForm">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="Name">Name</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control text-box single-line" type="text" name="Name" id="Name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="Full_Name">Full Name</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control text-box single-line" type="text" name="Full_Name" id="Full_Name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="Notes">Notes</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control text-box single-line" type="text" name="Notes" id="Notes" value="Added through Part"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="modalFormSubmit">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Type Modal -->
+        <div class="modal fade" id="typModal" tabindex="-1" role="dialog" aria-labelledby="typModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="typModalLabel">New Type</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form class="typModalForm" id="typModalForm">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="Name">Name</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control text-box single-line" type="text" name="Name" id="Name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="Notes">Notes</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control text-box single-line" type="text" name="Notes" id="Notes" value="Added through Part" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="typModalFormSubmit">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location Modal -->
+        <div class="modal fade" id="locModal" tabindex="-1" role="dialog" aria-labelledby="locModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="locModalLabel">New Location</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form class="locModalForm" id="locModalForm">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="Name">Name</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control text-box single-line" type="text" name="Name" id="Name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="Notes">Notes</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control text-box single-line" type="text" name="Notes" id="Notes" value="Added through Part" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="locModalFormSubmit">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Package Modal -->
+        <div class="modal fade" id="pacModal" tabindex="-1" role="dialog" aria-labelledby="pacModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="pacModalLabel">New package</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form class="pacModalForm" id="pacModalForm">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="Name">Name</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control text-box single-line" type="text" name="Name" id="Name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="Number">Number</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control text-box single-line" type="text" name="Number" id="Number" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="Notes">Notes</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control text-box single-line" type="text" name="Notes" id="Notes" value="Added through Part" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="pacModalFormSubmit">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modals END -->
     </div>
 </div>
 <script src="../js/bootstrap-tagsinput.js"></script>
+<script src="~/Scripts/ModalForm.js"></script>

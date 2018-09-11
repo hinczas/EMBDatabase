@@ -91,7 +91,7 @@ namespace EMBDatabase.Controllers
 
         [Route("api/WebApi/AddPart")]
         [HttpPost]
-        public GenericResponse AddPart([FromUri] ApiPart apiPart)
+        public GenericResponse AddPart([FromBody] ApiPart apiPart)
         {
             if(apiPart.Name==null || apiPart.Number==null)
             {
@@ -103,15 +103,16 @@ namespace EMBDatabase.Controllers
                 };
             } else
             {
-                bool saved = _ds.AddPart(apiPart);
+                long returnedId = _ds.AddPart(apiPart);
 
-                if (saved)
+                if (returnedId > 0)
                 {
                     return new GenericResponse()
                     {
                         Type = "Success",
                         Code = 0,
-                        Message = "Part saved."
+                        Message = "Part saved.",
+                        ItemId = returnedId
                     };
                 } else
                 {
@@ -120,6 +121,164 @@ namespace EMBDatabase.Controllers
                         Type = "Error",
                         Code = 1,
                         Message = "Exception was thrown when trying to save part."
+                    };
+                }
+            }
+        }
+
+        [Route("api/WebApi/AddManufacturer")]
+        [HttpPost]
+        public GenericResponse AddManufacturer([FromBody] Manufacturer manuf)
+        {
+            if (manuf.Name == null || manuf.Full_Name == null)
+            {
+                return new GenericResponse()
+                {
+                    Type = "Warning",
+                    Code = 2,
+                    Message = "Cannot create manufacturer. 'Name' and 'Full_Name' are required."
+                };
+            }
+            else
+            {
+
+                long returnedId = _ds.AddItem<Manufacturer>(manuf);
+
+                if (returnedId > 0)
+                {
+                    return new GenericResponse()
+                    {
+                        Type = "Success",
+                        Code = 0,
+                        Message = "Item saved.",
+                        ItemId = returnedId
+                    };
+                }
+                else
+                {
+                    return new GenericResponse()
+                    {
+                        Type = "Error",
+                        Code = 1,
+                        Message = "Exception was thrown when trying to save an item."
+                    };
+                }
+            }
+        }
+
+        [Route("api/WebApi/AddType")]
+        [HttpPost]
+        public GenericResponse AddType([FromBody] Models.Type type)
+        {
+            if (type.Name == null)
+            {
+                return new GenericResponse()
+                {
+                    Type = "Warning",
+                    Code = 2,
+                    Message = "Cannot create type. 'Name' is required."
+                };
+            }
+            else
+            {
+
+                long returnedId = _ds.AddItem<Models.Type>(type);
+
+                if (returnedId > 0)
+                {
+                    return new GenericResponse()
+                    {
+                        Type = "Success",
+                        Code = 0,
+                        Message = "Item saved.",
+                        ItemId = returnedId
+                    };
+                }
+                else
+                {
+                    return new GenericResponse()
+                    {
+                        Type = "Error",
+                        Code = 1,
+                        Message = "Exception was thrown when trying to save an item."
+                    };
+                }
+            }
+        }
+
+        [Route("api/WebApi/AddLocation")]
+        [HttpPost]
+        public GenericResponse AddLocation([FromBody] Location loc)
+        {
+            if (loc.Name == null)
+            {
+                return new GenericResponse()
+                {
+                    Type = "Warning",
+                    Code = 2,
+                    Message = "Cannot create location. 'Name' is required."
+                };
+            }
+            else
+            {
+                long returnedId = _ds.AddItem<Location>(loc);
+
+                if (returnedId > 0)
+                {
+                    return new GenericResponse()
+                    {
+                        Type = "Success",
+                        Code = 0,
+                        Message = "Item saved.",
+                        ItemId = returnedId
+                    };
+                }
+                else
+                {
+                    return new GenericResponse()
+                    {
+                        Type = "Error",
+                        Code = 1,
+                        Message = "Exception was thrown when trying to save an item."
+                    };
+                }
+            }
+        }
+
+        [Route("api/WebApi/AddPackage")]
+        [HttpPost]
+        public GenericResponse AddPackage([FromBody] Package pckg)
+        {
+            if (pckg.Name == null || pckg.Number == null)
+            {
+                return new GenericResponse()
+                {
+                    Type = "Warning",
+                    Code = 2,
+                    Message = "Cannot create package. 'Name' is required."
+                };
+            }
+            else
+            {
+                long returnedId = _ds.AddItem<Package>(pckg);
+
+                if (returnedId > 0)
+                {
+                    return new GenericResponse()
+                    {
+                        Type = "Success",
+                        Code = 0,
+                        Message = "Item saved.",
+                        ItemId = returnedId
+                    };
+                }
+                else
+                {
+                    return new GenericResponse()
+                    {
+                        Type = "Error",
+                        Code = 1,
+                        Message = "Exception was thrown when trying to save an item."
                     };
                 }
             }

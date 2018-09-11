@@ -10,5 +10,6 @@ namespace EMBDatabase.Models.API
         public string Type { get; set; }
         public int Code { get; set; }
         public string Message { get; set; }
+        public long? ItemId { get; set; }
     }
 }

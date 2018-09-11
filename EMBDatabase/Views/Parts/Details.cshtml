@@ -212,7 +212,7 @@
                             @Html.DisplayNameFor(model => model.Type)
                         </dt>
                         <dd>
-                            <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Type.Id})">@Model.Type.Name</a>
+                            <a href="@Url.Action("Details", "Types", new { id =  Model.Type.Id})">@Model.Type.Name</a>
                         </dd>
                     }
                     @if (Model.Package != null)
@@ -221,7 +221,7 @@
                             @Html.DisplayNameFor(model => model.Package)
                         </dt>
                         <dd>
-                            <a href="@Url.Action("Details", "Manufacturers", new { id =  Model.Package.Id})">@Model.Package.Name</a>
+                            <a href="@Url.Action("Details", "Packages", new { id =  Model.Package.Id})">@Model.Package.Name</a>
                         </dd>
                     }
                     @if (Model.Location != null)
