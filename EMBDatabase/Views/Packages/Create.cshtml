@@ -1,0 +1,105 @@
+﻿@model EMBDatabase.Models.Package
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+@{
+    ViewBag.Title = "Create Package";
+}
+<style>
+    .row {
+        padding-bottom: 5px;
+    }
+
+    textarea {
+        width: 250px;
+        height: 100px;
+    }
+
+    select {
+        min-width: 150px;
+    }
+</style>
+<div>
+    <p />
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">Actions</div>
+                    <div class="panel-body">
+                        <p>
+                            @Html.ActionLink(HttpUtility.HtmlDecode("&laquo; Back to list"), "Index", "Packages")
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Info</div>
+                    <div class="panel-body">
+                        <p>
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="panel panel-success">
+                <div class="panel-heading">New package ...</div>
+                <div class="panel-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Number, "Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right"><input type="submit" value="Create" class="btn btn-success" /></div>
+            </div>
+        }
+    </div>
+</div>
